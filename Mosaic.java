@@ -12,9 +12,9 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
-class Test extends Frame { 
+class Mosaic extends Frame { 
 
-	public Test() {
+	public Mosaic() {
 		try {
 
 		} catch (Exception e) {
@@ -47,7 +47,7 @@ public void paint(Graphics g) {
 
 public static void main(String[] args) {
 
-	Test img = new Test();
+	Mosaic img = new Mosaic();
 	img.repaint();
 	}
 }
