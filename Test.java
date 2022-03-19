@@ -21,7 +21,7 @@ class Test extends Frame {
 			System.out.println("Cannot load the provided image");
 		}
 		
-		this.setTitle("Test");
+		this.setTitle("IAT 455 - Rocket Power");
 		this.setVisible(true);
 
 		this.addWindowListener(
@@ -35,12 +35,17 @@ class Test extends Frame {
 
 public void paint(Graphics g) {
 	this.setSize(600, 400);
+	
+	g.setColor(Color.BLACK);
+    Font f1 = new Font("Verdana", Font.PLAIN, 13);  
+    g.setFont(f1); 
+    
+    g.drawString("hoi amena", 30, 70); 
 }
 
 public static void main(String[] args) {
 
 	Test img = new Test();
 	img.repaint();
-
 	}
 }
