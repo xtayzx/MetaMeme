@@ -41,6 +41,7 @@ public void paint(Graphics g) {
     g.setFont(f1); 
     
     g.drawString("hoi amena", 30, 70); 
+    g.drawString("henlo tay tay", 30, 120); 
 }
 
 public static void main(String[] args) {
