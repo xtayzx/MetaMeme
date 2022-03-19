@@ -42,6 +42,7 @@ public void paint(Graphics g) {
     
     g.drawString("hoi amena", 30, 70); 
     g.drawString("henlo tay tay", 30, 120); 
+    g.drawString("{^0.0^} meow", 30, 160); 
 }
 
 public static void main(String[] args) {
