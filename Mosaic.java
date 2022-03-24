@@ -11,15 +11,17 @@ import javax.imageio.ImageIO;
 
 class Mosaic extends Frame { 
 	
-	BufferedImage test;
+	BufferedImage tired, handsome, art;
 	
-	int width;
-	int height;
+	int artwidth, tileW;
+	int artheight, tileH;
 
 	public Mosaic() {
 
 		try {
-			test = ImageIO.read(new File("squidward.jpg"));
+			tired = ImageIO.read(new File("squidward.jpg"));
+			handsome = ImageIO.read(new File("handsome.jpg"));
+			art = ImageIO.read(new File("art.jpg"));
 
 		} catch (Exception e) {
 			System.out.println("Cannot load the provided image");
@@ -36,8 +38,11 @@ class Mosaic extends Frame {
 				}
 				);
 		
-		width = test.getWidth();
-		height = test.getHeight();
+		artwidth = art.getWidth();
+		artheight = art.getHeight();
+		
+		tileW = tired.getWidth();
+		tileH = tired.getHeight();
 	}
 
 	public static int [] averagePixel(BufferedImage src) {
@@ -64,11 +69,12 @@ class Mosaic extends Frame {
 	    pixelAvg[2] = (int)b/2500;
 
 	    return pixelAvg;
+	    
 	 }
 	
 
 public void paint(Graphics g) {
-	this.setSize(1000, 600);
+	this.setSize(artwidth + 5, artheight + 25);
 	
 	g.setColor(Color.BLACK);
     Font f1 = new Font("Consolas", Font.PLAIN, 13);  
@@ -76,9 +82,9 @@ public void paint(Graphics g) {
     
     g.drawString("hoi amena i'd like to share with you the best meme to state how the rest of the semester be feeling like",30,55);
     
-    for(int i = 0; i < 8; i++) {
-    	for (int j = 0; j < 12; j++) {
-    	g.drawImage(test,(j*50)+70,(i*50)+100,width,height,this);
+    for(int i = 0; i < artwidth/tileW; i++) {
+    	for (int j = 0; j < artheight/tileH; j++) {
+    	g.drawImage(tired, j* tileW, i*tileH +25, tileW, tileH, this);
     	}
     }
     
