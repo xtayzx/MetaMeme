@@ -20,9 +20,6 @@ class Mosaic extends Frame {
 	int height;
 
 	public Mosaic() {
-		
-	
-		
 		try {
 			test = ImageIO.read(new File("squidward.jpg"));
 
@@ -46,7 +43,7 @@ class Mosaic extends Frame {
 	}
 
 public void paint(Graphics g) {
-	this.setSize(850, 500);
+	this.setSize(1400, 800);
 	
 	g.setColor(Color.BLACK);
     Font f1 = new Font("Consolas", Font.PLAIN, 13);  
@@ -56,13 +53,20 @@ public void paint(Graphics g) {
 //    g.drawString("henlo tay tay", 30, 120); 
 //    g.drawString("{^0.0^} meow", 30, 160); 
     
-    g.drawString("hoi amena i'd like to share with you the best meme to state how the rest of the semester be feeling like",30,55); 
-    g.drawImage(test,70,100,width,height,this);
+//    g.drawString("hoi amena i'd like to share with you the best meme to state how the rest of the semester be feeling like",30,55); 
     
-    g.setColor(Color.BLUE);
-    Font f2 = new Font("Comic Sans MS", Font.PLAIN, 13);  
-    g.setFont(f2); 
-    g.drawString("when herbert says we need study for the final midterm as well as prepare a report and presentation",70,450); 
+    for(int i = 0; i < 12; i++) //rows
+    {
+    	for(int j = 0; j < 22; j++) //columns
+    		{
+    		g.drawImage(test,(j*width)+70,(i*height)+100,width,height,this);
+    	}
+    }
+    
+//    g.setColor(Color.BLUE);
+//    Font f2 = new Font("Comic Sans MS", Font.PLAIN, 13);  
+//    g.setFont(f2); 
+//    g.drawString("when herbert says we need study for the final midterm as well as prepare a report and presentation",70,750); 
     
 }
 
