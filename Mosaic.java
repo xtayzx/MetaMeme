@@ -5,9 +5,6 @@ import java.awt.Graphics;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
-import java.awt.image.ConvolveOp;
-import java.awt.image.Kernel;
-import java.awt.image.WritableRaster;
 import java.io.File;
 
 import javax.imageio.ImageIO;
@@ -20,9 +17,7 @@ class Mosaic extends Frame {
 	int height;
 
 	public Mosaic() {
-		
-	
-		
+
 		try {
 			test = ImageIO.read(new File("squidward.jpg"));
 
@@ -45,16 +40,39 @@ class Mosaic extends Frame {
 		height = test.getHeight();
 	}
 
+	public static int [] averagePixel(BufferedImage src) {
+	  
+	    int r = 0;
+	    int g = 0;
+	    int b = 0;
+	    
+	    //Take the RGB values of the pixels to get the total
+	    for (int i=0; i< 50; i++ ) {
+	      for (int j=0; j < 50; j++ ) {
+	        
+	    	  Color srcRGB = new Color(src.getRGB(i, j));
+	        
+	        r = srcRGB.getRed();
+	        g = srcRGB.getGreen();
+	        b = srcRGB.getBlue();
+	      }
+	    }
+
+	    int pixelAvg [] = new int[3];
+	    pixelAvg[0] = (int)r/2500;
+	    pixelAvg[1] = (int)g/2500;
+	    pixelAvg[2] = (int)b/2500;
+
+	    return pixelAvg;
+	 }
+	
+
 public void paint(Graphics g) {
 	this.setSize(850, 500);
 	
 	g.setColor(Color.BLACK);
     Font f1 = new Font("Consolas", Font.PLAIN, 13);  
     g.setFont(f1); 
-    
-//    g.drawString("hoi amena", 30, 70); 
-//    g.drawString("henlo tay tay", 30, 120); 
-//    g.drawString("{^0.0^} meow", 30, 160); 
     
     g.drawString("hoi amena i'd like to share with you the best meme to state how the rest of the semester be feeling like",30,55); 
     g.drawImage(test,70,100,width,height,this);
