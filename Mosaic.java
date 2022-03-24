@@ -68,19 +68,25 @@ class Mosaic extends Frame {
 	
 
 public void paint(Graphics g) {
-	this.setSize(850, 500);
+	this.setSize(1000, 600);
 	
 	g.setColor(Color.BLACK);
     Font f1 = new Font("Consolas", Font.PLAIN, 13);  
     g.setFont(f1); 
     
-    g.drawString("hoi amena i'd like to share with you the best meme to state how the rest of the semester be feeling like",30,55); 
-    g.drawImage(test,70,100,width,height,this);
+    g.drawString("hoi amena i'd like to share with you the best meme to state how the rest of the semester be feeling like",30,55);
+    
+    for(int i = 0; i < 8; i++) {
+    	for (int j = 0; j < 12; j++) {
+    	g.drawImage(test,(j*50)+70,(i*50)+100,width,height,this);
+    	}
+    }
+    
     
     g.setColor(Color.BLUE);
     Font f2 = new Font("Comic Sans MS", Font.PLAIN, 13);  
     g.setFont(f2); 
-    g.drawString("when herbert says we need study for the final midterm as well as prepare a report and presentation",70,450); 
+    g.drawString("when herbert says we need study for the final midterm as well as prepare a report and presentation",70,570); 
     
 }
 
