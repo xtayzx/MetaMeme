@@ -72,6 +72,30 @@ class Mosaic extends Frame {
 	    
 	 }
 	
+	public void imgPick (BufferedImage src) { // same as reduceColor.java
+		
+		
+	}
+	
+	public static int colorDecide (int v) { // I just stole this from the pokemon link and was going to try and decode
+		int num = 0;	//Array subscript
+		int difference;	//Array value-Absolute value of RGB value v
+		
+		int[] list = {64,128,192,192};
+
+		difference = Math.abs( list[0] - v );
+		
+		for ( int i = 1; i < list.length; i++ ) {
+			if ( Math.abs( list[i] - v ) < difference ) {
+				num = i;
+				difference = Math.abs( list[i] - v );
+			}
+		}
+ 		return list[num];
+  }
+
+	
+	
 
 public void paint(Graphics g) {
 	this.setSize(artwidth + 5, artheight + 25);
