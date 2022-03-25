@@ -5,13 +5,14 @@ import java.awt.Graphics;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.awt.image.WritableRaster;
 import java.io.File;
 
 import javax.imageio.ImageIO;
 
 class Mosaic extends Frame { 
 	
-	BufferedImage tired, handsome, art;
+	BufferedImage tired, handsome, art, blue, turq, bigSquidward;
 	
 	int artwidth, tileW;
 	int artheight, tileH;
@@ -22,6 +23,9 @@ class Mosaic extends Frame {
 			tired = ImageIO.read(new File("squidward.jpg"));
 			handsome = ImageIO.read(new File("handsome.jpg"));
 			art = ImageIO.read(new File("art.jpg"));
+			turq = ImageIO.read(new File("turq.jpg"));
+			blue = ImageIO.read(new File("blue.jpg"));
+			bigSquidward = ImageIO.read(new File("bigSquidward.jpg"));
 
 		} catch (Exception e) {
 			System.out.println("Cannot load the provided image");
@@ -72,6 +76,96 @@ class Mosaic extends Frame {
 	    
 	 }
 	
+	public static int pickColor(int[] average) {
+	    int R = colorDecide(average[0]);
+	    int G = colorDecide(average[1]);
+	    int B = colorDecide(average[2]);
+	    //An array to put the subscripts of the array of images to be converted
+	    int[][][] v = new int[256][256][256];
+	    
+	    v[64][64][64] = 4;    // black
+	    v[64][64][128] = 10;  // navy
+	    v[64][64][192] = 3;   // blue
+	    v[64][64][255] = 3;   // blue
+
+	    v[64][128][64] = 9;   // green
+	    v[64][128][128] = 15; // teal
+	    v[64][128][192] = 15; // teal
+	    v[64][128][255] = 3;  // blue
+
+	    v[64][192][64] = 2;   // lime
+	    v[64][192][128] = 15; // teal
+	    v[64][192][192] = 12; // aqua
+	    v[64][192][255] = 3;  // blue
+
+	    v[64][255][64] = 2;   // lime
+	    v[64][255][128] = 2;  // lime
+	    v[64][255][192] = 12; // aqua
+	    v[64][255][255] = 12; // aqua
+
+	    v[128][64][64] = 5;   // maroon
+	    v[128][64][128] = 14; // purple
+	    v[128][64][192] = 14; // purple
+	    v[128][64][255] = 3;  // blue
+
+	    v[128][128][64] = 6;  // olive
+	    v[128][128][128] = 13;// gray
+	    v[128][128][192] = 3; // blue
+	    v[128][128][255] = 3; // blue
+
+	    v[128][192][64] = 9;  // green
+	    v[128][192][128] = 2; // lime
+	    v[128][192][192] = 12;// aqua
+	    v[128][192][255] = 12;// aqua
+
+	    v[128][255][64] = 2;  // lime
+	    v[128][255][128] = 2; // lime
+	    v[128][255][192] = 2; // lime
+	    v[128][255][255] = 12;// aqua
+
+	    v[192][64][64] = 8;   // red
+	    v[192][64][128] = 1;  // fuchsia
+	    v[192][64][192] = 1;  // fuchsia
+	    v[192][64][255] = 14; // purple
+
+	    v[192][128][64] = 17; // orange
+	    v[192][128][128] = 16;// beige
+	    v[192][128][192] = 1; // fuchsia
+	    v[192][128][255] = 1; // fuchsia
+
+	    v[192][192][64] = 11;  // yellow
+	    v[192][192][128] = 11; // yellow
+	    v[192][192][192] = 0; // white
+	    v[192][192][255] = 12;// aqua
+
+	    v[192][255][64] = 12; // aqua
+	    v[192][255][128] = 2; // lime
+	    v[192][255][192] = 0; // white
+	    v[192][255][255] = 12;// aqua
+
+	    v[255][64][64] = 8;   // red
+	    v[255][64][128] = 8;  // red
+	    v[255][64][192] = 1;  // fuchsia
+	    v[255][64][255] = 1;  // fuchsia
+
+	    v[255][128][64] = 17; // orange
+	    v[255][128][128] = 16;// beige
+	    v[255][128][192] = 1; // fuchsia
+	    v[255][128][255] = 1; // fuchsia
+
+	    v[255][192][64] = 11; // yellow
+	    v[255][192][128] = 11;// yellow
+	    v[255][192][192] = 16;// beige
+	    v[255][192][255] = 16;// beige
+
+	    v[255][255][64] = 11; // yellow
+	    v[255][255][128] = 11;// yellow
+	    v[255][255][192] = 0; // white
+	    v[255][255][255] = 0; // white
+
+	    return v[R][G][B];
+	}
+	
 	public void imgPick (BufferedImage src) { // same as reduceColor.java
 		
 		
@@ -85,7 +179,7 @@ class Mosaic extends Frame {
 
 		difference = Math.abs( list[0] - v );
 		
-		for ( int i = 1; i < list.length; i++ ) {
+		for (int i = 1; i < list.length; i++ ) {
 			if ( Math.abs( list[i] - v ) < difference ) {
 				num = i;
 				difference = Math.abs( list[i] - v );
@@ -93,8 +187,6 @@ class Mosaic extends Frame {
 		}
  		return list[num];
   }
-
-	
 	
 
 public void paint(Graphics g) {
@@ -108,7 +200,10 @@ public void paint(Graphics g) {
     
     for(int i = 0; i < artwidth/tileW; i++) {
     	for (int j = 0; j < artheight/tileH; j++) {
-    	g.drawImage(tired, j* tileW, i*tileH +25, tileW, tileH, this);
+    		
+    	BufferedImage tileImage = randomImage();
+    	g.drawImage(tileImage, j* tileW, i*tileH +25, tileW, tileH, this);
+    	
     	}
     }
     
@@ -118,6 +213,41 @@ public void paint(Graphics g) {
     g.setFont(f2); 
     g.drawString("when herbert says we need study for the final midterm as well as prepare a report and presentation",70,570); 
     
+}
+
+public BufferedImage randomImage() {
+	
+//	int[] image1 = averagePixel(tired);
+//	int[] image2 = averagePixel(handsome);
+//	int[] image3 = averagePixel(art);
+	
+	int value = generateNumber(1,5);
+	
+	if (value == 1) {
+		return tired;
+	}
+	
+	else if (value == 2) {
+		return blue;
+	}
+	
+	else if (value == 3) {
+		return art;
+	}
+	
+	else if (value == 4) {
+		return turq;
+	}
+	
+	else
+	return tired;
+}
+
+public int generateNumber(int f, int l) {
+	int min = f;
+	int max = l;
+	int randomNumber = (int)Math.floor(Math.random()*(max-min+1)+min);
+	return randomNumber;
 }
 
 public static void main(String[] args) {
