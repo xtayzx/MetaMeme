@@ -40,7 +40,7 @@ class Mosaic extends Frame {
 						System.exit(0);
 					}
 				}
-				);
+		);
 		
 		artwidth = art.getWidth();
 		artheight = art.getHeight();
@@ -49,37 +49,81 @@ class Mosaic extends Frame {
 		tileH = tired.getHeight();
 	}
 
-	public static int [] averagePixel(BufferedImage src) {
-	  
+	public static int[] averagePixel(BufferedImage src) {
 	    int r = 0;
 	    int g = 0;
 	    int b = 0;
 	    
 	    //Take the RGB values of the pixels to get the total
 	    for (int i=0; i< 50; i++ ) {
-	      for (int j=0; j < 50; j++ ) {
-	        
-	    	  Color srcRGB = new Color(src.getRGB(i, j));
-	        
+	      for (int j=0; j < 50; j++ ) {   
+	    	Color srcRGB = new Color(src.getRGB(i, j));
 	        r = srcRGB.getRed();
 	        g = srcRGB.getGreen();
 	        b = srcRGB.getBlue();
 	      }
 	    }
 
-	    int pixelAvg [] = new int[3];
+      	int pixelAvg [] = new int[3];
 	    pixelAvg[0] = (int)r/2500;
 	    pixelAvg[1] = (int)g/2500;
 	    pixelAvg[2] = (int)b/2500;
-
+		    
 	    return pixelAvg;
-	    
 	 }
+	    
+	 public static void calcPixelAverage(BufferedImage src) { //average colour for the square
+		    int r = 0;
+		    int g = 0;
+		    int b = 0;
+		    
+		    int totalR = 0;
+		    int totalG = 0;
+		    int totalB = 0;
+		    
+		    int finalR = 0;
+		    int finalG = 0;
+		    int finalB = 0;
+		    
+		    int pixelNumber = 0;
+		    
+		    //Take the RGB values of the pixels to get the total
+		    for (int i=0; i< 50; i++ ) {
+		      for (int j=0; j < 50; j++ ) {   
+		    	  
+		    	Color srcRGB = new Color(src.getRGB(i, j));
+		        r = srcRGB.getRed();
+		        g = srcRGB.getGreen();
+		        b = srcRGB.getBlue();
+		        pixelNumber++;
+		        
+		        int pixelAvg [] = new int[3];
+		     
+		        totalR += r;
+		        totalG += g;
+		        totalB += b;
+		        
+		        pixelAvg[0] = (int)r;
+			    pixelAvg[1] = (int)g;
+			    pixelAvg[2] = (int)b;
+			    
+			    System.out.println("PIXEL: "+pixelNumber+" // "+pixelAvg[0]+" // "+pixelAvg[1]+" // "+pixelAvg[2]);
+		      }
+		    }
+		    
+		    finalR = totalR/2500;
+		    finalG = totalG/2500;
+		    finalB = totalB/2500;
+		    
+		    System.out.println("Final Totals:"+" // "+finalR+" // "+finalG+" // "+finalB);
+
+		 }
 	
 	public static int pickColor(int[] average) {
 	    int R = colorDecide(average[0]);
 	    int G = colorDecide(average[1]);
 	    int B = colorDecide(average[2]);
+	    
 	    //An array to put the subscripts of the array of images to be converted
 	    int[][][] v = new int[256][256][256];
 	    
@@ -168,29 +212,32 @@ class Mosaic extends Frame {
 	
 	public void imgPick (BufferedImage src) { // same as reduceColor.java
 		
-		
 	}
 	
 	public static int colorDecide (int v) { // I just stole this from the pokemon link and was going to try and decode
+		
 		int num = 0;	//Array subscript
 		int difference;	//Array value-Absolute value of RGB value v
 		
 		int[] list = {64,128,192,192};
 
 		difference = Math.abs( list[0] - v );
-		
 		for (int i = 1; i < list.length; i++ ) {
 			if ( Math.abs( list[i] - v ) < difference ) {
 				num = i;
 				difference = Math.abs( list[i] - v );
 			}
 		}
+		
  		return list[num];
   }
 	
 
 public void paint(Graphics g) {
 	this.setSize(artwidth + 5, artheight + 25);
+	
+	calcPixelAverage(turq);
+//	calcPixel(blue);
 	
 	g.setColor(Color.BLACK);
     Font f1 = new Font("Consolas", Font.PLAIN, 13);  
@@ -207,7 +254,7 @@ public void paint(Graphics g) {
     	}
     }
     
-    
+//    g.drawImage(bigSquidward, 0, 25, 500, 500, this);
     g.setColor(Color.BLUE);
     Font f2 = new Font("Comic Sans MS", Font.PLAIN, 13);  
     g.setFont(f2); 
@@ -251,7 +298,6 @@ public int generateNumber(int f, int l) {
 }
 
 public static void main(String[] args) {
-
 	Mosaic img = new Mosaic();
 	img.repaint();
 	}
