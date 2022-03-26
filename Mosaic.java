@@ -51,29 +51,6 @@ class Mosaic extends Frame {
 		tileH = tired.getHeight();
 
 	}
-
-//	public static int[] averagePixel(BufferedImage src) {
-//	    int r = 0;
-//	    int g = 0;
-//	    int b = 0;
-//	    
-//	    //Take the RGB values of the pixels to get the total
-//	    for (int i=0; i< 50; i++ ) {
-//	      for (int j=0; j < 50; j++ ) {   
-//	    	Color srcRGB = new Color(src.getRGB(i, j));
-//	        r = srcRGB.getRed();
-//	        g = srcRGB.getGreen();
-//	        b = srcRGB.getBlue();
-//	      }
-//	    }
-//
-//      	int pixelAvg [] = new int[3];
-//	    pixelAvg[0] = (int)r/2500;
-//	    pixelAvg[1] = (int)g/2500;
-//	    pixelAvg[2] = (int)b/2500;
-//		    
-//	    return pixelAvg;
-//	 }
 	    
 	 public BufferedImage calcPixelAverage(BufferedImage src, int a, int z) { //average colour for the square
 		    int r = 0;
@@ -144,101 +121,6 @@ class Mosaic extends Frame {
 				    else return bigSquidward;
 
 		 }
-	
-//	public static int pickColor(int[] average) {
-//	    int R = colorDecide(average[0]);
-//	    int G = colorDecide(average[1]);
-//	    int B = colorDecide(average[2]);
-//	    
-//	    //An array to put the subscripts of the array of images to be converted
-//	    int[][][] v = new int[256][256][256];
-//	    
-//	    v[64][64][64] = 4;    // black
-//	    v[64][64][128] = 10;  // navy
-//	    v[64][64][192] = 3;   // blue
-//	    v[64][64][255] = 3;   // blue
-//
-//	    v[64][128][64] = 9;   // green
-//	    v[64][128][128] = 15; // teal
-//	    v[64][128][192] = 15; // teal
-//	    v[64][128][255] = 3;  // blue
-//
-//	    v[64][192][64] = 2;   // lime
-//	    v[64][192][128] = 15; // teal
-//	    v[64][192][192] = 12; // aqua
-//	    v[64][192][255] = 3;  // blue
-//
-//	    v[64][255][64] = 2;   // lime
-//	    v[64][255][128] = 2;  // lime
-//	    v[64][255][192] = 12; // aqua
-//	    v[64][255][255] = 12; // aqua
-//
-//	    v[128][64][64] = 5;   // maroon
-//	    v[128][64][128] = 14; // purple
-//	    v[128][64][192] = 14; // purple
-//	    v[128][64][255] = 3;  // blue
-//
-//	    v[128][128][64] = 6;  // olive
-//	    v[128][128][128] = 13;// gray
-//	    v[128][128][192] = 3; // blue
-//	    v[128][128][255] = 3; // blue
-//
-//	    v[128][192][64] = 9;  // green
-//	    v[128][192][128] = 2; // lime
-//	    v[128][192][192] = 12;// aqua
-//	    v[128][192][255] = 12;// aqua
-//
-//	    v[128][255][64] = 2;  // lime
-//	    v[128][255][128] = 2; // lime
-//	    v[128][255][192] = 2; // lime
-//	    v[128][255][255] = 12;// aqua
-//
-//	    v[192][64][64] = 8;   // red
-//	    v[192][64][128] = 1;  // fuchsia
-//	    v[192][64][192] = 1;  // fuchsia
-//	    v[192][64][255] = 14; // purple
-//
-//	    v[192][128][64] = 17; // orange
-//	    v[192][128][128] = 16;// beige
-//	    v[192][128][192] = 1; // fuchsia
-//	    v[192][128][255] = 1; // fuchsia
-//
-//	    v[192][192][64] = 11;  // yellow
-//	    v[192][192][128] = 11; // yellow
-//	    v[192][192][192] = 0; // white
-//	    v[192][192][255] = 12;// aqua
-//
-//	    v[192][255][64] = 12; // aqua
-//	    v[192][255][128] = 2; // lime
-//	    v[192][255][192] = 0; // white
-//	    v[192][255][255] = 12;// aqua
-//
-//	    v[255][64][64] = 8;   // red
-//	    v[255][64][128] = 8;  // red
-//	    v[255][64][192] = 1;  // fuchsia
-//	    v[255][64][255] = 1;  // fuchsia
-//
-//	    v[255][128][64] = 17; // orange
-//	    v[255][128][128] = 16;// beige
-//	    v[255][128][192] = 1; // fuchsia
-//	    v[255][128][255] = 1; // fuchsia
-//
-//	    v[255][192][64] = 11; // yellow
-//	    v[255][192][128] = 11;// yellow
-//	    v[255][192][192] = 16;// beige
-//	    v[255][192][255] = 16;// beige
-//
-//	    v[255][255][64] = 11; // yellow
-//	    v[255][255][128] = 11;// yellow
-//	    v[255][255][192] = 0; // white
-//	    v[255][255][255] = 0; // white
-//
-//	    return v[R][G][B];
-//	}
-	
-//	public void imgPick (BufferedImage src) { // same as reduceColor.java
-//		
-//	}
 	
 //	public static int colorDecide (int v) { // I just stole this from the pokemon link and was going to try and decode
 //		
