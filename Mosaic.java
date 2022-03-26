@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 
 class Mosaic extends Frame { 
 	
-	BufferedImage tired, handsome, art, blue, turq, bigSquidward, test;
+	BufferedImage tired, handsome, art, blue, turq, bigSquidward, test, test2;
 	
 	int artwidth, tileW;
 	int artheight, tileH;
@@ -26,6 +26,7 @@ class Mosaic extends Frame {
 			turq = ImageIO.read(new File("turq.jpg"));
 			blue = ImageIO.read(new File("blue.jpg"));
 			test = ImageIO.read(new File("test.jpg"));
+			test2 = ImageIO.read(new File("test2.jpg"));
 			bigSquidward = ImageIO.read(new File("bigSquidward.jpg"));
 
 		} catch (Exception e) {
@@ -128,7 +129,7 @@ class Mosaic extends Frame {
 				    
 				    System.out.println("HSV : "+hue+" // Bright: "+hsv[2]+" // Final Totals:"+" // "+finalR+" // "+finalG+" // "+finalB);
 				    
-				    if(hue > 11 && hue <= 50) {
+				    if(hue > 11 && hue <= 100) {
 				    	return blue;
 				    }
 				    
