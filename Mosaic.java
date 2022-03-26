@@ -43,8 +43,8 @@ class Mosaic extends Frame {
 				}
 		);
 		
-		artwidth = art.getWidth();
-		artheight = art.getHeight();
+		artwidth = test.getWidth()/2;
+		artheight = test.getHeight()/2;
 		
 		tileW = tired.getWidth();
 		tileH = tired.getHeight();
@@ -126,17 +126,17 @@ class Mosaic extends Frame {
 				    //mult by 100 cause the values are super low
 				    hue = hsv[0]*100;
 				    
-				    System.out.println("HSV : "+hue+" // Final Totals:"+" // "+finalR+" // "+finalG+" // "+finalB);
+				    System.out.println("HSV : "+hue+" // Bright: "+hsv[2]+" // Final Totals:"+" // "+finalR+" // "+finalG+" // "+finalB);
 				    
 				    if(hue > 11 && hue <= 50) {
 				    	return blue;
 				    }
 				    
-				    else if(hue > 4 && hue <= 11) {
+				    else if(hue > 2.2 && hue <= 11) {
 				    	return art;
 				    }
 				    
-				    else if(hue > 0 && hue <= 4) {
+				    else if(hue > 0 && hue <= 2.2) {
 				    	return tired;
 				    }
 				    
@@ -274,8 +274,11 @@ public void paint(Graphics g) {
     int a = 0;
 	int b = 0;
 	
-    for(int i = 0; i < artwidth/tileW; i++) {
-    	for (int j = 0; j < artheight/tileH; j++) {
+	int loop1 = artwidth/tileW;
+	int loop2 = artheight/tileH;
+	
+    for(int i = 0; i < loop1; i++) {
+    	for (int j = 0; j < loop2; j++) {
 
     		BufferedImage tileImage = calcPixelAverage(test, a, b);
     		g.drawImage(tileImage, j* tileW, i*tileH +25, tileW, tileH, this);
