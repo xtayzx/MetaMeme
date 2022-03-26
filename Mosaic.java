@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 
 class Mosaic extends Frame { 
 	
-	BufferedImage tired, handsome, art, blue, turq, bigSquidward;
+	BufferedImage tired, handsome, art, blue, turq, bigSquidward, test;
 	
 	int artwidth, tileW;
 	int artheight, tileH;
@@ -25,6 +25,7 @@ class Mosaic extends Frame {
 			art = ImageIO.read(new File("art.jpg"));
 			turq = ImageIO.read(new File("turq.jpg"));
 			blue = ImageIO.read(new File("blue.jpg"));
+			test = ImageIO.read(new File("test.jpg"));
 			bigSquidward = ImageIO.read(new File("bigSquidward.jpg"));
 
 		} catch (Exception e) {
@@ -89,8 +90,8 @@ class Mosaic extends Frame {
 		    int pixelNumber = 0;
 		    
 		    //Take the RGB values of the pixels to get the total
-				    for (int i=0; i< 10; i++ ) {
-				      for (int j=0; j < 10; j++ ) {   
+				    for (int i=0; i< 50; i++ ) {
+				      for (int j=0; j < 50; j++ ) {   
 				    	  
 				    	//a and z is the different squares in the main image  
 				    	Color srcRGB = new Color(src.getRGB(i+a, j+z));
@@ -109,7 +110,7 @@ class Mosaic extends Frame {
 					    pixelAvg[1] = (int)g;
 					    pixelAvg[2] = (int)b;
 					    
-					    System.out.println("A: "+a+" B: "+z+" // PIXEL: ("+pixelNumber+") "+pixelAvg[0]+" // "+pixelAvg[1]+" // "+pixelAvg[2]);
+//					    System.out.println("A: "+a+" B: "+z+" // PIXEL: ("+pixelNumber+") "+pixelAvg[0]+" // "+pixelAvg[1]+" // "+pixelAvg[2]);
 				      }
 				    }
 				    
@@ -127,15 +128,15 @@ class Mosaic extends Frame {
 				    
 				    System.out.println("HSV : "+hue+" // Final Totals:"+" // "+finalR+" // "+finalG+" // "+finalB);
 				    
-				    if(hue > 25 && hue < 50) {
+				    if(hue > 11 && hue <= 50) {
 				    	return blue;
 				    }
 				    
-				    else if(hue > 13 && hue < 24) {
+				    else if(hue > 4 && hue <= 11) {
 				    	return art;
 				    }
 				    
-				    else if(hue > 0 && hue < 12) {
+				    else if(hue > 0 && hue <= 4) {
 				    	return tired;
 				    }
 				    
@@ -276,7 +277,7 @@ public void paint(Graphics g) {
     for(int i = 0; i < artwidth/tileW; i++) {
     	for (int j = 0; j < artheight/tileH; j++) {
 
-    		BufferedImage tileImage = calcPixelAverage(bigSquidward, a, b);
+    		BufferedImage tileImage = calcPixelAverage(test, a, b);
     		g.drawImage(tileImage, j* tileW, i*tileH +25, tileW, tileH, this);
     	
     		//move to the right
