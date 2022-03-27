@@ -1,3 +1,10 @@
+/**
+ * IAT 455 - Final Project (Meta Meme)
+ * Spring 2022
+ * Amena Salman (301363453)
+ * Taylen Lee-Chin (301371610)
+ **/
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Frame;
@@ -5,7 +12,6 @@ import java.awt.Graphics;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
-import java.awt.image.WritableRaster;
 import java.io.File;
 
 import javax.imageio.ImageIO;
@@ -29,7 +35,9 @@ class Mosaic extends Frame {
 			test2 = ImageIO.read(new File("test2.jpg"));
 			bigSquidward = ImageIO.read(new File("bigSquidward.jpg"));
 
-		} catch (Exception e) {
+		} 
+		
+		catch (Exception e) {
 			System.out.println("Cannot load the provided image");
 		}
 		
@@ -44,6 +52,7 @@ class Mosaic extends Frame {
 				}
 		);
 		
+		//image is currently 1000x1000 so this is calculated down in half to make 500x500
 		artwidth = test.getWidth()/2;
 		artheight = test.getHeight()/2;
 		
@@ -52,7 +61,7 @@ class Mosaic extends Frame {
 
 	}
 	    
-	 public BufferedImage calcPixelAverage(BufferedImage src, int a, int z) { //average colour for the square
+	 public BufferedImage calcPixelAverage(BufferedImage src, int a, int z) { //average color for the square in the referenced image
 		    int r = 0;
 		    int g = 0;
 		    int b = 0;
@@ -65,9 +74,9 @@ class Mosaic extends Frame {
 		    int finalG = 0;
 		    int finalB = 0;
 		    
-		    int pixelNumber = 0;
+		    int pixelNumber = 0; //used to print line about determining which pixel is being calculated
 		    
-		    //Take the RGB values of the pixels to get the total
+		    //for all the pixels in that specific square region
 				    for (int i=0; i< 50; i++ ) {
 				      for (int j=0; j < 50; j++ ) {   
 				    	  
@@ -88,24 +97,28 @@ class Mosaic extends Frame {
 					    pixelAvg[1] = (int)g;
 					    pixelAvg[2] = (int)b;
 					    
-//					    System.out.println("A: "+a+" B: "+z+" // PIXEL: ("+pixelNumber+") "+pixelAvg[0]+" // "+pixelAvg[1]+" // "+pixelAvg[2]);
+					    //print line about square region that is being calculated and the values for each individual pixel
+					    //System.out.println("A: "+a+" B: "+z+" // PIXEL: ("+pixelNumber+") "+pixelAvg[0]+" // "+pixelAvg[1]+" // "+pixelAvg[2]);
 				      }
 				    }
 				    
-				    //average out the values of the calculated area
+				    //average out the pixel values of the calculated square area
 				    finalR = totalR/2500;
 				    finalG = totalG/2500;
 				    finalB = totalB/2500;
 
-				    float hsv[] = new float[3];
-				    float hue = 0;
+				    float hsv[] = new float[3]; //convert values to HSV
+				    float hue = 0; //need to make hue value larger as currently it is quite small
+				    
 				    hsv = Color.RGBtoHSB(finalR, finalG, finalB, null);
 				    
-				    //mult by 100 cause the values are super low
+				    //mult by 100 cause the values are super low currently
 				    hue = hsv[0]*100;
 				    
+				    //see values for the average of each square in the refernced image
 				    System.out.println("Hue : "+hue+" // Bright: "+hsv[2]+" // Final Totals:"+" // "+finalR+" // "+finalG+" // "+finalB);
 				    
+				    //depending on the hue value, select this image to return
 				    if(hue > 11 && hue <= 100) {
 				    	return blue;
 				    }
@@ -122,54 +135,31 @@ class Mosaic extends Frame {
 
 		 }
 	
-//	public static int colorDecide (int v) { // I just stole this from the pokemon link and was going to try and decode
-//		
-//		int num = 0;	//Array subscript
-//		int difference;	//Array value-Absolute value of RGB value v
-//		
-//		int[] list = {64,128,192,192};
-//
-//		difference = Math.abs( list[0] - v );
-//		for (int i = 1; i < list.length; i++ ) {
-//			if ( Math.abs( list[i] - v ) < difference ) {
-//				num = i;
-//				difference = Math.abs( list[i] - v );
-//			}
-//		}
-//		
-// 		return list[num];
-//  }
-	
 
 public void paint(Graphics g) {
+	
+	//slightly offset as it currently creates the first image out of bounds of the window size
 	this.setSize(artwidth + 5, artheight + 25);
-	
-//	calcPixelAverage(turq);
-//	calcPixelAverage(bigSquidward);
-//	calcPixel(blue);
-	
-	g.setColor(Color.BLACK);
-    Font f1 = new Font("Consolas", Font.PLAIN, 13);  
-    g.setFont(f1); 
-    
-    g.drawString("hoi amena i'd like to share with you the best meme to state how the rest of the semester be feeling like",30,55);
     
     int a = 0;
 	int b = 0;
 	
-	int loop1 = artwidth/tileW;
-	int loop2 = artheight/tileH;
+	int loop1 = artwidth/tileW; //place the individual tiles for the columns
+	int loop2 = artheight/tileH; //move the placement for the individual tiles to the next row
+	
+	g.setColor(Color.BLACK);
+    Font f1 = new Font("Consolas", Font.PLAIN, 13);  
+    g.setFont(f1); 
 	
     for(int i = 0; i < loop1; i++) {
     	for (int j = 0; j < loop2; j++) {
-
-    		BufferedImage tileImage = calcPixelAverage(test, a, b);
+    		BufferedImage tileImage = calcPixelAverage(test, a, b); //draw the image and pass the values for the origin point of 0,0 in the pixel calculations
     		g.drawImage(tileImage, j* tileW, i*tileH +25, tileW, tileH, this);
     	
     		//move to the right
     		a+=50;
     		
-    		//reset back to the start
+    		//reset back to the start on the left
     		if (a > 500) {
     			a = 0;
     		}
@@ -179,19 +169,17 @@ public void paint(Graphics g) {
     	b+=50;
     }
     
-//    g.drawImage(bigSquidward, 0, 25, 500, 500, this);
-    g.setColor(Color.BLUE);
-    Font f2 = new Font("Comic Sans MS", Font.PLAIN, 13);  
-    g.setFont(f2); 
-    g.drawString("when herbert says we need study for the final midterm as well as prepare a report and presentation",70,570); 
+//  g.drawImage(bigSquidward, 0, 25, 500, 500, this);
     
 }
 
+//test function created to see if images would be placed properly in selected areas
+
 //public BufferedImage randomImage() {
 //	
-////	int[] image1 = averagePixel(tired);
-////	int[] image2 = averagePixel(handsome);
-////	int[] image3 = averagePixel(art);
+//	int[] image1 = averagePixel(tired);
+//	int[] image2 = averagePixel(handsome);
+//	int[] image3 = averagePixel(art);
 //	
 //	int value = generateNumber(1,5);
 //	
@@ -214,6 +202,8 @@ public void paint(Graphics g) {
 //	else
 //	return tired;
 //}
+
+//test function to generate a random number with min value and max value
 
 //public int generateNumber(int f, int l) {
 //	int min = f;
