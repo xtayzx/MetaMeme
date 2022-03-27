@@ -104,7 +104,7 @@ class Mosaic extends Frame {
 				    //mult by 100 cause the values are super low
 				    hue = hsv[0]*100;
 				    
-				    System.out.println("HSV : "+hue+" // Bright: "+hsv[2]+" // Final Totals:"+" // "+finalR+" // "+finalG+" // "+finalB);
+				    System.out.println("Hue : "+hue+" // Bright: "+hsv[2]+" // Final Totals:"+" // "+finalR+" // "+finalG+" // "+finalB);
 				    
 				    if(hue > 11 && hue <= 100) {
 				    	return blue;
