@@ -10,12 +10,13 @@ import javax.swing.JPanel;
 import image.BaseImage;
 import image.Image1;
 import image.ImageTemp;
+import image.ImageTiles;
 import image.Image2;
 
 public class ButtonPanel extends JPanel implements ActionListener {
 
 		private static final long serialVersionUID = 8885065922598051928L;
-		public static final int width = 800;
+		public static final int width = 750;
 		public static final int height = 700;
 		public String choice = "No button pressed";
 		private MainPanel mPanel;
@@ -53,6 +54,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
 				choice = "Image 3 selected";
 				//TODO:
 				//no method yet
+				img = new ImageTiles();
 				mPanel.image1.setEnabled(false);
 				mPanel.image2.setEnabled(false);
 				mPanel.image4.setEnabled(false);
@@ -87,14 +89,15 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		}
 
 		public void paint(Graphics g) {
-			g.drawString(choice, 25, 25);
+			g.drawString(choice, width/2-250, height/2+280); //log for what button is pressed
+			
 			g.setColor(Color.DARK_GRAY);
-			g.fillRect(100,100,500,500);
+			g.fillRect(125,100,500,500);
 			
 			g.setColor(Color.WHITE);
 		    Font f1 = new Font("Comic Sans MS", Font.PLAIN, 42);  
 		    g.setFont(f1); 
-			g.drawString("Meta Meme", width/2-200, height/2);
+			g.drawString("Meta Meme", width/2-125, height/2);
 			
 			img.draw(g);
 		}

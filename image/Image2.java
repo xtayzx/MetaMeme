@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Image2 extends ImageSelect {
+public class Image2 extends BaseImage {
 	public Image image2;
 	public Image2() {
 	    try {
@@ -18,7 +18,7 @@ public class Image2 extends ImageSelect {
 	
 	@Override
 	public void draw(Graphics g) {
-	    g.drawImage(image2, 100, 100, 
+	    g.drawImage(image2, 125, 100, 
 	        500, 500, null);
 	}
 }
