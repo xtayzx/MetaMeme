@@ -60,7 +60,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
 				mPanel.image4.setEnabled(false);
 				break;
 			case "Image 4":
-				choice = "Image 4 selected";
+				choice = "Image 4 selected - but nothing happens rn tho lmao";
 				//TODO:
 				//no method yet
 				mPanel.image1.setEnabled(false);
@@ -77,7 +77,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
 				mPanel.image4.setEnabled(false);
 				break;
 			case "Reset Image":
-				choice = "Reset selected";
+				choice = "Reset selected - but nothing happens rn tho lmao";
 				img = new BaseImage();
 				mPanel.image1.setEnabled(true);
 				mPanel.image2.setEnabled(true);
