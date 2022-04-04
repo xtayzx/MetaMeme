@@ -68,8 +68,10 @@ public class ImageTiles extends BaseImage {
 			        b = srcRGB.getBlue();
 			        pixelNumber++;
 			        
+			        Color br= srcRGB.brighter();
 			        int pixelAvg [] = new int[3];
-			     
+				    System.out.println("Bri" + br);
+
 			        totalR += r;
 			        totalG += g;
 			        totalB += b;
@@ -83,36 +85,44 @@ public class ImageTiles extends BaseImage {
 			      }
 			    }
 			    
-			    //average out the pixel values of the calculated square area
-			    finalR = totalR/2500;
-			    finalG = totalG/2500;
-			    finalB = totalB/2500;
-
 			    float hsv[] = new float[3]; //convert values to HSV
 			    float hue = 0; //need to make hue value larger as currently it is quite small
 			    
-			    hsv = Color.RGBtoHSB(finalR, finalG, finalB, null);
+			    hsv = Color.RGBtoHSB(totalR, totalG, totalB, null);
+//			    System.out.println("Hue : "+hue+" // Bright: "+hsv[2]+" // Final Totals:"+" // "+totalR+" // "+totalG+" // "+totalB);
+
 			    
-			    //mult by 100 cause the values are super low currently
-			    hue = hsv[0]*100;
 			    
-			    //see values for the average of each square in the refernced image
-			    System.out.println("Hue : "+hue+" // Bright: "+hsv[2]+" // Final Totals:"+" // "+finalR+" // "+finalG+" // "+finalB);
-			    
-			    //depending on the hue value, select this image to return
-			    if(hue > 11 && hue <= 100) {
-			    	return blue;
-			    }
-			    
-			    else if(hue > 2.2 && hue <= 11) {
-			    	return art;
-			    }
-			    
-			    else if(hue > 0 && hue <= 2.2) {
-			    	return tired;
-			    }
-			    
-			    else return bigSquidward;
+			    //average out the pixel values of the calculated square area
+//			    finalR = totalR/2500;
+//			    finalG = totalG/2500;
+//			    finalB = totalB/2500;
+//
+//			    float hsv[] = new float[3]; //convert values to HSV
+//			    float hue = 0; //need to make hue value larger as currently it is quite small
+//			    
+//			    hsv = Color.RGBtoHSB(finalR, finalG, finalB, null);
+//			    
+//			    //mult by 100 cause the values are super low currently
+//			    hue = hsv[0]*100;
+//			    
+//			    //see values for the average of each square in the refernced image
+//			    System.out.println("Hue : "+hue+" // Bright: "+hsv[2]+" // Final Totals:"+" // "+finalR+" // "+finalG+" // "+finalB);
+//			    
+//			    //depending on the hue value, select this image to return
+//			    if(hue > 11 && hue <= 100) {
+//			    	return blue;
+//			    }
+//			    
+//			    else if(hue > 2.2 && hue <= 11) {
+//			    	return art;
+//			    }
+//			    
+//			    else if(hue > 0 && hue <= 2.2) {
+//			    	return tired;
+//			    }
+//			    
+			    return bigSquidward;
 
 	 }
 
