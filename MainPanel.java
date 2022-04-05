@@ -8,12 +8,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 import image.BaseImage;
-import image.Image1;
+//import image.Image1;
 import image.ImageTemp;
 import image.ImageTiles;
-import image.Image2;
+//import image.Image2;
 
-public class MainPanel extends JPanel implements ActionListener {
+public class MainPanel extends JPanel implements ActionListener{
 
 		private static final long serialVersionUID = 8885065922598051928L;
 		public static final int width = 750;
@@ -36,53 +36,53 @@ public class MainPanel extends JPanel implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			switch (event.getActionCommand()) {
-			case "Image 1":
-				choice = "Image 1 selected";
-				img = new Image1();
-				mPanel.image2.setEnabled(false);
-				mPanel.image3.setEnabled(false);
-				mPanel.image4.setEnabled(false);
-				break;
-			case "Image 2":
-				choice = "Image 2 selected";
-				img = new Image2();
-				mPanel.image1.setEnabled(false);
-				mPanel.image3.setEnabled(false);
-				mPanel.image4.setEnabled(false);
-				break;
-			case "Image 3":
-				choice = "Image 3 selected";
+//			case "Image 1":
+//				choice = "Image 1 selected";
+//				img = new Image1();
+//				mPanel.image2.setEnabled(false);
+//				mPanel.image3.setEnabled(false);
+//				mPanel.image4.setEnabled(false);
+//				break;
+//			case "Image 2":
+//				choice = "Image 2 selected";
+//				img = new Image2();
+//				mPanel.image1.setEnabled(false);
+//				mPanel.image3.setEnabled(false);
+//				mPanel.image4.setEnabled(false);
+//				break;
+			case "Generate Test Mosaic":
+				choice = "Test Mosaic generated";
 				//TODO:
 				//no method yet
 				img = new ImageTiles();
-				mPanel.image1.setEnabled(false);
-				mPanel.image2.setEnabled(false);
-				mPanel.image4.setEnabled(false);
+//				mPanel.image1.setEnabled(false);
+//				mPanel.image2.setEnabled(false);
+//				mPanel.image4.setEnabled(false);
 				break;
-			case "Image 4":
-				choice = "Image 4 selected - but nothing happens rn tho lmao";
+//			case "Image 4":
+//				choice = "Image 4 selected - but nothing happens rn tho lmao";
 				//TODO:
 				//no method yet
-				mPanel.image1.setEnabled(false);
-				mPanel.image2.setEnabled(false);
-				mPanel.image3.setEnabled(false);
-				break;		
-			case "Upload Your Image":
-				choice = "Upload selected";
+//				mPanel.image1.setEnabled(false);
+//				mPanel.image2.setEnabled(false);
+//				mPanel.image3.setEnabled(false);
+//				break;		
+//			case "Upload Your Image":
+//				choice = "Upload selected";
 				//TODO:
 				//no method yet
-				mPanel.image1.setEnabled(false);
-				mPanel.image2.setEnabled(false);
-				mPanel.image3.setEnabled(false);
-				mPanel.image4.setEnabled(false);
-				break;
+//				mPanel.image1.setEnabled(false);
+//				mPanel.image2.setEnabled(false);
+//				mPanel.image3.setEnabled(false);
+//				mPanel.image4.setEnabled(false);
+//				break;
 			case "Reset Image":
-				choice = "Reset selected - but nothing happens rn tho lmao";
+				choice = "Reset selected";
 				img = new BaseImage();
-				mPanel.image1.setEnabled(true);
-				mPanel.image2.setEnabled(true);
-				mPanel.image3.setEnabled(true);
-				mPanel.image4.setEnabled(true);
+				mPanel.mosaic.setEnabled(true);
+//				mPanel.image2.setEnabled(true);
+//				mPanel.image3.setEnabled(true);
+//				mPanel.image4.setEnabled(true);
 				break;
 			}
 			repaint();

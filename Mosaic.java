@@ -2,18 +2,24 @@
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import image.BaseImage;
+//import image.Image1;
+//import image.Image2;
 import image.ImageTiles;
 import image.ImportedImage;
 
@@ -24,17 +30,19 @@ import image.ImportedImage;
 * Taylen Lee-Chin (301371610)
 **/
 
-public class Mosaic extends JFrame {
+public class Mosaic extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
 	
 	private final JFileChooser openFileChooser;
 	private BufferedImage originalBI;
 	
-	private JButton openButton = new JButton("Open file");
+	private JButton openButton;
 	private JPanel openPanel;
 	
-	public Boolean open = false;
+	public String choice = "No button pressed";
+	
+//	public Boolean open = false;
 	
 	public String fileUpload;
 	
@@ -47,22 +55,29 @@ public class Mosaic extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		
+		openButton = new JButton("Upload File");
+		
 		ButtonPanel bPanel = new ButtonPanel();
 		MainPanel mPanel = new MainPanel(bPanel);
 		bPanel.addActionListener(mPanel);
-		bPanel.add(openButton);
+//		bPanel.add(openButton);
+//		bPanel.setBorder(BorderFactory.createTitledBorder("Main Menu"));
+//		bPanel.setLayout(new FlowLayout(6, 12,FlowLayout.LEFT));
+//		mPanel.add(reset);
+		
+		openPanel = new JPanel();
+		openPanel.setBorder(BorderFactory.createTitledBorder("Customize"));
+		openPanel.setLayout(new FlowLayout(6,6,FlowLayout.LEFT));
+		openPanel.add(openButton);
+		bPanel.add(openPanel);
 		
 		setLayout(new BorderLayout());
+		add(bPanel, BorderLayout.SOUTH);
 		add(mPanel, BorderLayout.CENTER);
-		add(bPanel, BorderLayout.NORTH);
 		pack();
 		setVisible(true);
 		
-//		openPanel = new JPanel();
-//		openPanel.setBorder(BorderFactory.createTitledBorder("Meta Meme Menu"));
-//		openPanel.setLayout(new FlowLayout(6,6,FlowLayout.LEFT));
-//		openPanel.add(openButton);
-//		add(openPanel, BorderLayout.SOUTH);
+		
 		
 		openFileChooser = new JFileChooser();
 		openFileChooser.setCurrentDirectory(new File("c:\\temp"));
@@ -70,6 +85,7 @@ public class Mosaic extends JFrame {
 		
 		openButton.addActionListener(e -> {
             selectFile();
+            bPanel.mosaic.setEnabled(false);
         });
 	}
 
@@ -101,5 +117,7 @@ public class Mosaic extends JFrame {
 		}
 		
 	}
+
+	
 
 	

@@ -17,7 +17,7 @@ public class ImportedImage extends BaseImage{
 	
 	@Override
 	public void draw(Graphics g) {
-	    g.drawImage(importedImage, 125, 180, 
+	    g.drawImage(importedImage, 125, 128, 
 	        500, 500, null);
 	}
 }
