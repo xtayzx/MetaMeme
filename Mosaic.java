@@ -47,21 +47,22 @@ public class Mosaic extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		
-		MainPanel mPanel = new MainPanel();
-		ButtonPanel bPanel = new ButtonPanel(mPanel);
-		mPanel.addActionListener(bPanel);
+		ButtonPanel bPanel = new ButtonPanel();
+		MainPanel mPanel = new MainPanel(bPanel);
+		bPanel.addActionListener(mPanel);
+		bPanel.add(openButton);
 		
 		setLayout(new BorderLayout());
-		add(bPanel, BorderLayout.CENTER);
-		add(mPanel, BorderLayout.NORTH);
+		add(mPanel, BorderLayout.CENTER);
+		add(bPanel, BorderLayout.NORTH);
 		pack();
 		setVisible(true);
 		
-		openPanel = new JPanel();
-		openPanel.setBorder(BorderFactory.createTitledBorder("Meta Meme Menu"));
-		openPanel.setLayout(new FlowLayout(6,6,FlowLayout.LEFT));
-		openPanel.add(openButton);
-		add(openPanel, BorderLayout.SOUTH);
+//		openPanel = new JPanel();
+//		openPanel.setBorder(BorderFactory.createTitledBorder("Meta Meme Menu"));
+//		openPanel.setLayout(new FlowLayout(6,6,FlowLayout.LEFT));
+//		openPanel.add(openButton);
+//		add(openPanel, BorderLayout.SOUTH);
 		
 		openFileChooser = new JFileChooser();
 		openFileChooser.setCurrentDirectory(new File("c:\\temp"));
@@ -96,10 +97,7 @@ public class Mosaic extends JFrame {
 		else {
 				fileUpload = "No file chosen";
 			}
-		
 			System.out.println(fileUpload);
-			
-			
 		}
 		
 	}
