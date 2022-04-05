@@ -54,11 +54,11 @@ public class ImageTiles extends BaseImage {
 	    
 	    int pixelNumber = 0; //used to print line about determining which pixel is being calculated
 	    
-	    
-	    
+	    int i1 = a + 50;
+	    int j1 = z +50;
 	    //for all the pixels in that specific square region
-			    for (int i=0; i<a; i++ ) {
-			      for (int j=0; j < z; j++ ) {   
+			    for (int i=0; i< 50; i++ ) {
+			      for (int j=0; j < 50; j++ ) {   
 			    	  
 			    	//a and z is the different squares in the main image  
 			    	Color srcRGB = new Color(src.getRGB(i+a, j+z));
@@ -133,7 +133,46 @@ public class ImageTiles extends BaseImage {
 			    return src;
 
 	 }
+	
+	public static Color getAverageRGBCircle(BufferedImage img, int x, int y, int radius) {
+		  float r = 0;
+		  float g = 0;
+		  float b = 0;
+		  int num = 0;
+		  
+		  /* Iterate through a bounding box in which the circle lies */
+		  for (int i = x - radius; i < x + radius; i++) {
+		    for (int j = y - radius; j < y + radius; j++) {
+		      /* If the pixel is outside the canvas, skip it */
+		      if (i < 0 || i >= img.getWidth() || j < 0 || j >= img.getHeight())
+		        continue;
 
+		      /* If the pixel is outside the circle, skip it */
+		      double xi = Math.abs(i-x);
+		      double yj = Math.abs(j-y);
+		      if (Math.hypot(xi, yj) > r)
+		        continue;
+
+		      /* Get the color from the image, add to a running sum */
+		      Color srcRGB = new Color(img.getRGB(i, j));
+		      r += srcRGB.getRed();
+		      g += srcRGB.getGreen();
+		      b += srcRGB.getBlue();
+		   
+		      num++;
+		    }
+		  }
+		  
+		  int sqR = (int) Math.sqrt(r/num);
+		  int sqG = (int) Math.sqrt(g/num);
+		  int sqB = (int) Math.sqrt(b/num);
+				  
+		  Color c = new Color(sqR,sqG,sqB);
+		  /* Return the mean of the R, G, and B components */
+		  return c;
+		}
+
+	
 		@Override
 		public void draw(Graphics g) {
 		
@@ -154,11 +193,12 @@ public class ImageTiles extends BaseImage {
 				
 				//TODO:
 				//test from the constructor to get passed into here
+				
 				BufferedImage tileImage = calcPixelAverage(test, a, b); //draw the image and pass the values for the origin point of 0,0 in the pixel calculations
 				g.drawImage(tileImage, j* tileW+offsetWidth, i*tileH +offsetHeight, tileW, tileH, null);
 			
 				//move to the right
-				a+=50;
+				a += 50;
 				
 				//reset back to the start on the left
 				if (a > 500) {
@@ -167,7 +207,7 @@ public class ImageTiles extends BaseImage {
 			}
 			
 			//move down
-			b+=50;
+			b += 50;
 			}
 		}
 
