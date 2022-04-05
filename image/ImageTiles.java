@@ -42,72 +42,80 @@ public class ImageTiles extends BaseImage {
 		tileH = tired.getHeight();
 	}
 	
+	
 	public BufferedImage calcPixelAverage(BufferedImage src, int a, int z) { //average color for the square in the referenced image
 	    int r = 0;
 	    int g = 0;
 	    int b = 0;
 	    
-	    int totalR = 0;
-	    int totalG = 0;
-	    int totalB = 0;
-	    
-	    int finalR = 0;
-	    int finalG = 0;
-	    int finalB = 0;
+	    int avgR = 0;
+	    int avgG = 0;
+	    int avgB = 0;
 	    
 	    int pixelNumber = 0; //used to print line about determining which pixel is being calculated
 	    
+	    
+	    
 	    //for all the pixels in that specific square region
-			    for (int i=0; i< 50; i++ ) {
-			      for (int j=0; j < 50; j++ ) {   
+			    for (int i=0; i<a; i++ ) {
+			      for (int j=0; j < z; j++ ) {   
 			    	  
 			    	//a and z is the different squares in the main image  
 			    	Color srcRGB = new Color(src.getRGB(i+a, j+z));
-			        r = srcRGB.getRed();
-			        g = srcRGB.getGreen();
-			        b = srcRGB.getBlue();
+			        r += srcRGB.getRed();
+			        g += srcRGB.getGreen();
+			        b += srcRGB.getBlue();
 			        pixelNumber++;
+			      
+		            int num = 2500; //averaging pixel number in 50x50 pixel square
+		            
+		            avgR = (int) (r/num);
+		            avgG = (int) (g/num);
+		            avgB = (int) (b/num);
+		            
+		            if(avgR>255)
+						avgR=255;
+					if(avgG>255)
+						avgG=255;
+					if(avgB>255)
+						avgB=255;
+					
+		            if(avgR<0)
+						avgR=0;
+		            if(avgG<0)
+						avgG=0;
+		            if(avgB<0)
+						avgB=0;
+		            
+		    	    //src.setRGB(i,j,new Color(avgR,avgG,avgB).getRGB());
 			        
-			        Color br= srcRGB.brighter();
 			        int pixelAvg [] = new int[3];
-				    System.out.println("Bri" + br);
 
-			        totalR += r;
-			        totalG += g;
-			        totalB += b;
+//			        totalR += r;
+//			        totalG += g;
+//			        totalB += b;
 			        
-			        pixelAvg[0] = (int)r;
-				    pixelAvg[1] = (int)g;
-				    pixelAvg[2] = (int)b;
+			        pixelAvg[0] = (int)avgR;
+				    pixelAvg[1] = (int)avgG;
+				    pixelAvg[2] = (int)avgB;
 				    
+				    src.setRGB(i,j,new Color(avgR,avgG,avgB).getRGB());
 				    //print line about square region that is being calculated and the values for each individual pixel
-				    //System.out.println("A: "+a+" B: "+z+" // PIXEL: ("+pixelNumber+") "+pixelAvg[0]+" // "+pixelAvg[1]+" // "+pixelAvg[2]);
+				    System.out.println("A: "+a+" B: "+z+" // PIXEL: ("+pixelNumber+") "+pixelAvg[0]+" // "+pixelAvg[1]+" // "+pixelAvg[2]);
 			      }
 			    }
 			    
-			    float hsv[] = new float[3]; //convert values to HSV
-			    float hue = 0; //need to make hue value larger as currently it is quite small
-			    
-			    hsv = Color.RGBtoHSB(totalR, totalG, totalB, null);
-//			    System.out.println("Hue : "+hue+" // Bright: "+hsv[2]+" // Final Totals:"+" // "+totalR+" // "+totalG+" // "+totalB);
 
-			    
-			    
-			    //average out the pixel values of the calculated square area
-//			    finalR = totalR/2500;
-//			    finalG = totalG/2500;
-//			    finalB = totalB/2500;
-//
 //			    float hsv[] = new float[3]; //convert values to HSV
 //			    float hue = 0; //need to make hue value larger as currently it is quite small
 //			    
-//			    hsv = Color.RGBtoHSB(finalR, finalG, finalB, null);
+//			    hsv = Color.RGBtoHSB(avgR, avgG, avgB, null);
 //			    
 //			    //mult by 100 cause the values are super low currently
 //			    hue = hsv[0]*100;
 //			    
 //			    //see values for the average of each square in the refernced image
-//			    System.out.println("Hue : "+hue+" // Bright: "+hsv[2]+" // Final Totals:"+" // "+finalR+" // "+finalG+" // "+finalB);
+//			    System.out.println("Hue : "+hue+" // Bright: "+hsv[2]+" // Final Totals:"+" // "+avgR+" // "+avgG+" // "+avgB);
 //			    
 //			    //depending on the hue value, select this image to return
 //			    if(hue > 11 && hue <= 100) {
@@ -121,8 +129,8 @@ public class ImageTiles extends BaseImage {
 //			    else if(hue > 0 && hue <= 2.2) {
 //			    	return tired;
 //			    }
-//			    
-			    return bigSquidward;
+			    
+			    return src;
 
 	 }
 
