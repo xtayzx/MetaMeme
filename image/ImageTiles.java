@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.awt.image.WritableRaster;
 import java.io.File;
 
 import javax.imageio.ImageIO;
@@ -12,8 +13,8 @@ public class ImageTiles extends BaseImage {
 
 	BufferedImage tired, handsome, art, blue, turq, bigSquidward, test, test2;
 	
-	int artWidth, tileW;
-	int artHeight, tileH;
+	int width, tileW;
+	int height, tileH;
 	
 	
 	//TODO:
@@ -35,8 +36,8 @@ public class ImageTiles extends BaseImage {
 			System.out.println("Cannot load the provided image");
 		}
 		
-		artWidth = test.getWidth()/2;
-		artHeight = test.getHeight()/2;
+		width = test.getWidth()/2;
+		height = test.getHeight()/2;
 		
 		tileW = tired.getWidth();
 		tileH = tired.getHeight();
@@ -44,7 +45,11 @@ public class ImageTiles extends BaseImage {
 	
 	
 	public BufferedImage calcPixelAverage(BufferedImage src, int a, int z) { //average color for the square in the referenced image
-	    int r = 0;
+		WritableRaster wRaster = src.copyData(null);
+		BufferedImage img = new BufferedImage(src.getColorModel(), wRaster, test.isAlphaPremultiplied(), null);
+
+		
+		int r = 0;
 	    int g = 0;
 	    int b = 0;
 	    
@@ -52,58 +57,51 @@ public class ImageTiles extends BaseImage {
 	    int avgG = 0;
 	    int avgB = 0;
 	    
-	    int pixelNumber = 0; //used to print line about determining which pixel is being calculated
+	    int num = width * height; //used to print line about determining which pixel is being calculated
 	    
-	    int i1 = a + 50;
-	    int j1 = z +50;
-	    //for all the pixels in that specific square region
-			    for (int i=0; i< 50; i++ ) {
-			      for (int j=0; j < 50; j++ ) {   
-			    	  
-			    	//a and z is the different squares in the main image  
-			    	Color srcRGB = new Color(src.getRGB(i+a, j+z));
-			        r += srcRGB.getRed();
-			        g += srcRGB.getGreen();
-			        b += srcRGB.getBlue();
-			        pixelNumber++;
-			      
-		            int num = 2500; //averaging pixel number in 50x50 pixel square
-		            
-		            avgR = (int) (r/num);
-		            avgG = (int) (g/num);
-		            avgB = (int) (b/num);
-		            
-		            if(avgR>255)
-						avgR=255;
-					if(avgG>255)
-						avgG=255;
-					if(avgB>255)
-						avgB=255;
-					
-		            if(avgR<0)
-						avgR=0;
-		            if(avgG<0)
-						avgG=0;
-		            if(avgB<0)
-						avgB=0;
-		            
-		    	    //src.setRGB(i,j,new Color(avgR,avgG,avgB).getRGB());
-			        
-			        int pixelAvg [] = new int[3];
+	    for (int i = 0; i < width; i++) { // loop through image
+			for (int j = 0; j < height; j++) {
 
-//			        totalR += r;
-//			        totalG += g;
-//			        totalB += b;
-			        
-			        pixelAvg[0] = (int)avgR;
-				    pixelAvg[1] = (int)avgG;
-				    pixelAvg[2] = (int)avgB;
-				    
-				    src.setRGB(i,j,new Color(avgR,avgG,avgB).getRGB());
-				    //print line about square region that is being calculated and the values for each individual pixel
-				    System.out.println("A: "+a+" B: "+z+" // PIXEL: ("+pixelNumber+") "+pixelAvg[0]+" // "+pixelAvg[1]+" // "+pixelAvg[2]);
-			      }
-			    }
+				Color tRGB = new Color(test.getRGB(i, j)); // get rgb values of each pixel
+
+				// get separated rgb values of each pixel
+				r += tRGB.getRed();
+				g += tRGB.getGreen();
+				b += tRGB.getBlue();
+
+			}
+		}
+	
+		avgR = (int) (r / num);
+		avgG = (int) (g / num);
+		avgB = (int) (b / num);
+
+		if (avgR > 255)
+			avgR = 255;
+		if (avgG > 255)
+			avgG = 255;
+		if (avgB > 255)
+			avgB = 255;
+
+		if (avgR < 0)
+			avgR = 0;
+		if (avgG < 0)
+			avgG = 0;
+		if (avgB < 0)
+			avgB = 0;
+		
+		//int a = 0;
+		//int z = 0;
+
+		for (int i = 0; i < tileW ; i++) { // loop through image
+			for (int j = 0; j < tileH ; j++) {
+
+				img.setRGB(i, j, new Color(avgR, avgG, avgB).getRGB());
+				
+			}
+		}
+
+		return img;
 			    
 
 //			    float hsv[] = new float[3]; //convert values to HSV
@@ -130,47 +128,10 @@ public class ImageTiles extends BaseImage {
 //			    	return tired;
 //			    }
 			    
-			    return src;
 
 	 }
 	
-	public static Color getAverageRGBCircle(BufferedImage img, int x, int y, int radius) {
-		  float r = 0;
-		  float g = 0;
-		  float b = 0;
-		  int num = 0;
-		  
-		  /* Iterate through a bounding box in which the circle lies */
-		  for (int i = x - radius; i < x + radius; i++) {
-		    for (int j = y - radius; j < y + radius; j++) {
-		      /* If the pixel is outside the canvas, skip it */
-		      if (i < 0 || i >= img.getWidth() || j < 0 || j >= img.getHeight())
-		        continue;
-
-		      /* If the pixel is outside the circle, skip it */
-		      double xi = Math.abs(i-x);
-		      double yj = Math.abs(j-y);
-		      if (Math.hypot(xi, yj) > r)
-		        continue;
-
-		      /* Get the color from the image, add to a running sum */
-		      Color srcRGB = new Color(img.getRGB(i, j));
-		      r += srcRGB.getRed();
-		      g += srcRGB.getGreen();
-		      b += srcRGB.getBlue();
-		   
-		      num++;
-		    }
-		  }
-		  
-		  int sqR = (int) Math.sqrt(r/num);
-		  int sqG = (int) Math.sqrt(g/num);
-		  int sqB = (int) Math.sqrt(b/num);
-				  
-		  Color c = new Color(sqR,sqG,sqB);
-		  /* Return the mean of the R, G, and B components */
-		  return c;
-		}
+	
 
 	
 		@Override
@@ -181,8 +142,8 @@ public class ImageTiles extends BaseImage {
 		int offsetHeight = 100;
 		int offsetWidth = 125;
 		
-		int loop1 = artWidth/tileW; //place the individual tiles for the columns
-		int loop2 = artHeight/tileH; //move the placement for the individual tiles to the next row
+		int loop1 = width/tileW; //place the individual tiles for the columns
+		int loop2 = height/tileH; //move the placement for the individual tiles to the next row
 		
 		g.setColor(Color.BLACK);
 		Font f1 = new Font("Consolas", Font.PLAIN, 13);  
