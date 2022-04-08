@@ -77,8 +77,6 @@ public class Mosaic extends JFrame{
 		pack();
 		setVisible(true);
 		
-		
-		
 		openFileChooser = new JFileChooser();
 		openFileChooser.setCurrentDirectory(new File("c:\\temp"));
 		openFileChooser.setFileFilter(new FileNameExtensionFilter("JPEG image", "jpeg", "jpg"));
