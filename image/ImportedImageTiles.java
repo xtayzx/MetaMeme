@@ -137,7 +137,7 @@ BufferedImage test, avgTest;
 
 //		this.setSize(width * 3, (int) (height * 1.5));
 		
-		g.drawImage(avgTest, 125, 128, w, h, this);
+		g.drawImage(avgTest, 125, 100, w, h, this);
 
 	}
 

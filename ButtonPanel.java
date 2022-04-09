@@ -9,12 +9,11 @@ public class ButtonPanel extends JPanel {
 //	private JPanel imagePanel;
 //	public JButton image1;
 //	public JButton image2;
-	public JButton mosaic;
+	public JButton mosaic,reset,custom;
 //	public JButton image4;
 	
-	private JPanel mainPanel;
+	public JPanel mainPanel;
 //	private JButton upload;
-	private JButton reset;
 
 	public ButtonPanel() {
 		setComponent();
@@ -37,11 +36,14 @@ public class ButtonPanel extends JPanel {
 //		imagePanel.add(image4);
 		
 		reset = new JButton("Reset Image");
+		custom = new JButton("Upload File");
 //		upload = new JButton("Upload Your Image");
 		mainPanel = new JPanel();
 		mainPanel.setBorder(BorderFactory.createTitledBorder("Main Menu"));
 		mainPanel.setLayout(new FlowLayout(6,6,FlowLayout.LEFT));
+		
 		mainPanel.add(mosaic);
+		mainPanel.add(custom);
 		mainPanel.add(reset);
 	}
 	
@@ -52,6 +54,7 @@ public class ButtonPanel extends JPanel {
 //		image4.addActionListener(ep);
 		mosaic.addActionListener(ep);
 		reset.addActionListener(ep);
+		custom.addActionListener(ep);
 	}
 
 }
