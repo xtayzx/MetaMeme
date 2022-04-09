@@ -1,7 +1,6 @@
 package image;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -11,22 +10,21 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
-public class ImageTiles extends BaseImage implements ImageObserver {
-
-	BufferedImage test, avgTest;
+public class ImportedImageTiles extends BaseImage implements ImageObserver {
+BufferedImage test, avgTest;
 	
 	int width, tileW;
 	int height, tileH;
 	
-	public BufferedImage test2;
+	public BufferedImage test2, importedImage;
 	
 	
 	//TODO:
 	//should add into the constructor the image to pass in for the test value and implemented in draw
-	public ImageTiles() {
+	public ImportedImageTiles(BufferedImage selected) {
 		try {
 //			tired = ImageIO.read(new File("squidward.jpg"));
-			test = ImageIO.read(new File("handsome.jpg"));
+//			test = ImageIO.read(new File("handsome.jpg"));
 //			art = ImageIO.read(new File("art.jpg"));
 //			turq = ImageIO.read(new File("turq.jpg"));
 //			blue = ImageIO.read(new File("blue.jpg"));
@@ -45,14 +43,17 @@ public class ImageTiles extends BaseImage implements ImageObserver {
 		
 		tileW = 10;
 		tileH = 10;
+		
+		importedImage = selected;
 
-		avgTest = tiler();
+		avgTest = tiler(importedImage);
+		
 	}
 	
-	public BufferedImage tiler() {
+	public BufferedImage tiler(BufferedImage imported) {
 		
-		WritableRaster wRaster = test.copyData(null);
-		BufferedImage img = new BufferedImage(test.getColorModel(), wRaster, test.isAlphaPremultiplied(), null);
+		WritableRaster wRaster = imported.copyData(null);
+		BufferedImage img = new BufferedImage(imported.getColorModel(), wRaster, imported.isAlphaPremultiplied(), null);
 	
 		for (int i = 0; i < width; i += tileW ) {
 			for (int j = 0; j <  height; j += tileH) {
@@ -80,7 +81,7 @@ public class ImageTiles extends BaseImage implements ImageObserver {
 //						
 //						System.out.println("V:"+ v);
 
-						Color tRGB = new Color(test.getRGB(u, v)); // get rgb values of each pixel
+						Color tRGB = new Color(imported.getRGB(u, v)); // get rgb values of each pixel
 
 						// get separated rgb values of each pixel
 						r += tRGB.getRed();
@@ -136,7 +137,7 @@ public class ImageTiles extends BaseImage implements ImageObserver {
 
 //		this.setSize(width * 3, (int) (height * 1.5));
 		
-		g.drawImage(avgTest, 125, 100, w, h, this);
+		g.drawImage(avgTest, 125, 128, w, h, this);
 
 	}
 
@@ -145,5 +146,4 @@ public class ImageTiles extends BaseImage implements ImageObserver {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 }

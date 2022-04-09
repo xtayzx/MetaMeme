@@ -22,6 +22,7 @@ import image.BaseImage;
 //import image.Image2;
 import image.ImageTiles;
 import image.ImportedImage;
+import image.ImportedImageTiles;
 
 /**
 * IAT 455 - Final Project (Meta Meme)
@@ -46,7 +47,7 @@ public class Mosaic extends JFrame{
 	
 	public String fileUpload;
 	
-	public ImportedImage test;
+	public ImportedImageTiles mosaicTest;
 	
 //	public ImageTiles image = new ImageTiles();
 	
@@ -84,6 +85,7 @@ public class Mosaic extends JFrame{
 		openButton.addActionListener(e -> {
             selectFile();
             bPanel.mosaic.setEnabled(false);
+            
         });
 	}
 
@@ -99,8 +101,8 @@ public class Mosaic extends JFrame{
 			try {
 				originalBI = ImageIO.read(openFileChooser.getSelectedFile());
 				fileUpload = "Image file successfully loaded";
-				test = new ImportedImage(originalBI);
-				test.draw(getGraphics());
+				mosaicTest = new ImportedImageTiles(originalBI);
+				mosaicTest.draw(getGraphics());
 				
 				
 			} catch (IOException ioe) {
