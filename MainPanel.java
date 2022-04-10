@@ -73,6 +73,9 @@ public class MainPanel extends JPanel implements ActionListener{
 		}
 
 		public void paint(Graphics g) {
+			g.setColor(Color.CYAN);
+			g.fillRect(0,0,width,height);
+			
 			g.drawString(choice, width/2-250, height/2+280); //log for what button is pressed
 			
 			g.setColor(Color.DARK_GRAY);
