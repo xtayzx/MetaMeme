@@ -16,7 +16,7 @@ public class ImportedImageTiles extends BaseImage implements ImageObserver {
 	int width, tileW, height, tileH;
 	
 	public ArrayList<Integer> tileVal = new ArrayList<Integer>();
-	public BufferedImage importedImage, tile1, tile2, tile3, tile4, tile5, tile6, tile7, tile8;
+	public BufferedImage importedImage, tile1, tile2, tile3, tile4, tile5, tile6, tile7, tile8, tile9, tile10, tile11, tile12;
 	
 	public ImportedImageTiles(BufferedImage selected) {
 		try {			
@@ -28,6 +28,10 @@ public class ImportedImageTiles extends BaseImage implements ImageObserver {
             tile6 = ImageIO.read(new File("tile6.jpg"));
             tile7 = ImageIO.read(new File("tile7.jpg"));
             tile8 = ImageIO.read(new File("tile8.jpg"));
+            tile9 = ImageIO.read(new File("tile9.jpg"));
+            tile10 = ImageIO.read(new File("tile10.jpg"));
+            tile11 = ImageIO.read(new File("tile11.jpg"));
+            tile12 = ImageIO.read(new File("tile12.jpg"));
 		} 
 		
 		catch (Exception e) {
@@ -51,6 +55,10 @@ public class ImportedImageTiles extends BaseImage implements ImageObserver {
 		tileAverage(tile6);
 		tileAverage(tile7);
 		tileAverage(tile8);
+		tileAverage(tile9);
+		tileAverage(tile10);
+		tileAverage(tile11);
+		tileAverage(tile12);
 
 		//create tiled image
 		tiledImage = generateImage(importedImage, tileVal);
@@ -407,6 +415,66 @@ public class ImportedImageTiles extends BaseImage implements ImageObserver {
                                   }
                               }
                           }
+							
+						//TILE 9
+							else if(select == 8) {
+		                      for (int i = 0; i < tileW; i++ ) {
+		                          for(int j = 0; j < tileH; j++) {
+		                              Color tile9RGB = new Color(tile9.getRGB(i,j));
+		                              int tile9R = tile9RGB.getRed();
+		                              int tile9G = tile9RGB.getGreen();
+		                              int tile9B = tile9RGB.getBlue();
+		
+		                              img.setRGB(i+b,j+a,new Color(tile9R,tile9G,tile9B).getRGB());
+		
+		                          }
+		                      }
+		                  }
+							
+							//TILE 10
+							else if(select == 9) {
+		                      for (int i = 0; i < tileW; i++ ) {
+		                          for(int j = 0; j < tileH; j++) {
+		                              Color tile10RGB = new Color(tile10.getRGB(i,j));
+		                              int tile10R = tile10RGB.getRed();
+		                              int tile10G = tile10RGB.getGreen();
+		                              int tile10B = tile10RGB.getBlue();
+		
+		                              img.setRGB(i+b,j+a,new Color(tile10R,tile10G,tile10B).getRGB());
+		
+		                          }
+		                      }
+		                  }
+							
+							//TILE 11
+							else if(select == 10) {
+		                      for (int i = 0; i < tileW; i++ ) {
+		                          for(int j = 0; j < tileH; j++) {
+		                              Color tile11RGB = new Color(tile11.getRGB(i,j));
+		                              int tile11R = tile11RGB.getRed();
+		                              int tile11G = tile11RGB.getGreen();
+		                              int tile11B = tile11RGB.getBlue();
+		
+		                              img.setRGB(i+b,j+a,new Color(tile11R,tile11G,tile11B).getRGB());
+		
+		                          }
+		                      }
+		                  }
+							
+							//TILE 12
+							else if(select == 11) {
+		                      for (int i = 0; i < tileW; i++ ) {
+		                          for(int j = 0; j < tileH; j++) {
+		                              Color tile12RGB = new Color(tile9.getRGB(i,j));
+		                              int tile12R = tile12RGB.getRed();
+		                              int tile12G = tile12RGB.getGreen();
+		                              int tile12B = tile12RGB.getBlue();
+		
+		                              img.setRGB(i+b,j+a,new Color(tile12R,tile12G,tile12B).getRGB());
+		
+		                          }
+		                      }
+		                  }
 					}
 				}
 
