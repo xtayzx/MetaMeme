@@ -50,7 +50,7 @@ public class Mosaic extends JFrame{
 	}
 
 	public static void main(String[] args) {
-		new Mosaic("IAT 455 - Meta Meme");
+		new Mosaic("Meta Meme");
 	}
 
 	public void selectFile() {
