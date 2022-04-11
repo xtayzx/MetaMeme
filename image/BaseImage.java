@@ -6,7 +6,6 @@ public class BaseImage extends ImageTemp{
 	
 	@Override
 	public void draw(Graphics g) {
-
 	}
 
 }

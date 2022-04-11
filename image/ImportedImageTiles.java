@@ -13,11 +13,9 @@ import javax.imageio.ImageIO;
 
 public class ImportedImageTiles extends BaseImage implements ImageObserver {
 	BufferedImage test, tiledImage;
-	
 	int width, tileW, height, tileH;
 	
 	public ArrayList<Integer> tileVal = new ArrayList<Integer>();
-	
 	public BufferedImage importedImage, tile1, tile2, tile3, tile4, tile5, tile6, tile7, tile8;
 	
 	public ImportedImageTiles(BufferedImage selected) {
@@ -44,6 +42,7 @@ public class ImportedImageTiles extends BaseImage implements ImageObserver {
 		
 		importedImage = selected;
 		
+		//determine tile averages
 		tileAverage(tile1);
 		tileAverage(tile2);
 		tileAverage(tile3);
@@ -53,10 +52,12 @@ public class ImportedImageTiles extends BaseImage implements ImageObserver {
 		tileAverage(tile7);
 		tileAverage(tile8);
 
+		//create tiled image
 		tiledImage = generateImage(importedImage, tileVal);
 		
 	}
 	
+	//create the average composite image, which determines the average colour of a particular region
 	public BufferedImage compositeAverage(BufferedImage imported) {
 		WritableRaster wRaster = imported.copyData(null);
 		BufferedImage img = new BufferedImage(imported.getColorModel(), wRaster, imported.isAlphaPremultiplied(), null);
@@ -124,9 +125,11 @@ public class ImportedImageTiles extends BaseImage implements ImageObserver {
 			}
 		}
 		
+		//return average image calculated
 		return img;
 	}
 	
+	//return an arraylist of the regions and their colour values
 	public ArrayList<Integer> regionAverage(BufferedImage src) { //goes through each til (50x50 squares of source image, average colour then returns)
 		int avgCol= 0;
 		ArrayList<Integer> results = new ArrayList<Integer>();
@@ -145,21 +148,22 @@ public class ImportedImageTiles extends BaseImage implements ImageObserver {
 				int num = tileW*tileH;
 
 				Color averageColor;
+				
+				//determine the starting point to start drawing the tile
 				for (int u = i; u < i + tileW; u++ ) {
 					for(int v = j; v < j + tileH; v++) {
 					
 						Color tRGB = new Color(importedImage.getRGB(u, v)); // get rgb values of each pixel
 
-						// get separated rgb values of each pixel
+						//get separated rgb values of each pixel
 						r += tRGB.getRed();
 						g += tRGB.getGreen();
 						b += tRGB.getBlue();
-													
+							
+						//collect average values
 						avgR = (int) (r / num);
 						avgG = (int) (g / num);
 						avgB = (int) (b / num);
-
-						//System.out.println("R: " + avgR + "G: " + avgG + "B: " + avgB);
 
 						if (avgR > 255)
 							avgR = 255;
@@ -189,6 +193,7 @@ public class ImportedImageTiles extends BaseImage implements ImageObserver {
 		return results;
 	}
 	
+	//determine the average colour of each tile used for the composite
 	public void tileAverage(BufferedImage src) {
 		int c = 0;
 		int r = 0;
@@ -211,7 +216,8 @@ public class ImportedImageTiles extends BaseImage implements ImageObserver {
 				r += tRGB.getRed();
 				g += tRGB.getGreen();
 				b += tRGB.getBlue();
-											
+									
+				//collect average values
 				avgR = (int) (r / num);
 				avgG = (int) (g / num);
 				avgB = (int) (b / num);
@@ -238,16 +244,13 @@ public class ImportedImageTiles extends BaseImage implements ImageObserver {
 		tileVal.add(c);
 	}
 	
+	//generate the final composite mosaic image
 	public BufferedImage generateImage(BufferedImage src, ArrayList<Integer> tile) {
 		WritableRaster wRaster = src.copyData(null);
 		BufferedImage img = new BufferedImage(src.getColorModel(), wRaster, src.isAlphaPremultiplied(), null);
 
 		ArrayList<Integer> region = new ArrayList<Integer>();
 		region = regionAverage(src);
-		
-		System.out.println( "SECTION# "+region.size()); //gives 2500 vals
-		System.out.println( "TILE# "+tile.size()); //gives 2500 vals
-		System.out.println( "TILE AVG " + tile); //gives 2500 vals
 		
 		int a = 0;
 		int b = 0;
@@ -282,10 +285,12 @@ public class ImportedImageTiles extends BaseImage implements ImageObserver {
 				}
 
 			}
-					
+			
+			//determine the starting point to start drawing the tile
 				for (int u = b; u < b + tileW; u++ ) {
 					for(int v = a; v < a + tileH; v++) {
 							
+						//TILE 1
 							if(select == 0) {
 								for (int i = 0; i < tileW; i++ ) {
 									for(int j = 0; j < tileH; j++) {
@@ -298,113 +303,122 @@ public class ImportedImageTiles extends BaseImage implements ImageObserver {
 										}
 									}
 								}
-								
-								else if(select == 1) {
-									for (int i = 0; i < tileW; i++ ) {
-										for(int j = 0; j < tileH; j++) {
-											Color tile2RGB = new Color(tile2.getRGB(i,j));
-											int tile2R = tile2RGB.getRed();
-											int tile2G = tile2RGB.getGreen();
-											int tile2B = tile2RGB.getBlue();
-											
-											img.setRGB(i+b,j+a,new Color(tile2R,tile2G,tile2B).getRGB());
+						//TILE 2
+							else if(select == 1) {
+								for (int i = 0; i < tileW; i++ ) {
+									for(int j = 0; j < tileH; j++) {
+										Color tile2RGB = new Color(tile2.getRGB(i,j));
+										int tile2R = tile2RGB.getRed();
+										int tile2G = tile2RGB.getGreen();
+										int tile2B = tile2RGB.getBlue();
+										
+										img.setRGB(i+b,j+a,new Color(tile2R,tile2G,tile2B).getRGB());
 
-										}
-									}		
-								}
-								
-								else if(select == 2) {
-									for (int i = 0; i < tileW; i++ ) {
-										for(int j = 0; j < tileH; j++) {
-											Color tile3RGB = new Color(tile3.getRGB(i,j));
-											int tile3R = tile3RGB.getRed();
-											int tile3G = tile3RGB.getGreen();
-											int tile3B = tile3RGB.getBlue();
-		
-											img.setRGB(i+b,j+a,new Color(tile3R,tile3G,tile3B).getRGB());
-											
-										}
+									}
+								}		
+							}
+							
+						//TILE 3	
+							else if(select == 2) {
+								for (int i = 0; i < tileW; i++ ) {
+									for(int j = 0; j < tileH; j++) {
+										Color tile3RGB = new Color(tile3.getRGB(i,j));
+										int tile3R = tile3RGB.getRed();
+										int tile3G = tile3RGB.getGreen();
+										int tile3B = tile3RGB.getBlue();
+	
+										img.setRGB(i+b,j+a,new Color(tile3R,tile3G,tile3B).getRGB());
+										
 									}
 								}
+							}
+							
+						//TILE 4	
+							else if(select == 3) {
+								for (int i = 0; i < tileW; i++ ) {
+									for(int j = 0; j < tileH; j++) {
+										Color tile4RGB = new Color(tile4.getRGB(i,j));
+										int tile4R = tile4RGB.getRed();
+										int tile4G = tile4RGB.getGreen();
+										int tile4B = tile4RGB.getBlue();
+										
+										img.setRGB(i+b,j+a,new Color(tile4R,tile4G,tile4B).getRGB());
 								
-								else if(select == 3) {
-									for (int i = 0; i < tileW; i++ ) {
-										for(int j = 0; j < tileH; j++) {
-											Color tile4RGB = new Color(tile4.getRGB(i,j));
-											int tile4R = tile4RGB.getRed();
-											int tile4G = tile4RGB.getGreen();
-											int tile4B = tile4RGB.getBlue();
-											
-											img.setRGB(i+b,j+a,new Color(tile4R,tile4G,tile4B).getRGB());
-									
-										}
 									}
 								}
+							}
 							
-								else if(select == 4) {
-                                  for (int i = 0; i < tileW; i++ ) {
-                                      for(int j = 0; j < tileH; j++) {
-                                          Color tile5RGB = new Color(tile5.getRGB(i,j));
-                                          int tile5R = tile5RGB.getRed();
-                                          int tile5G = tile5RGB.getGreen();
-                                          int tile5B = tile5RGB.getBlue();
+						//TILE 5
+							else if(select == 4) {
+                              for (int i = 0; i < tileW; i++ ) {
+                                  for(int j = 0; j < tileH; j++) {
+                                      Color tile5RGB = new Color(tile5.getRGB(i,j));
+                                      int tile5R = tile5RGB.getRed();
+                                      int tile5G = tile5RGB.getGreen();
+                                      int tile5B = tile5RGB.getBlue();
 
-                                          img.setRGB(i+b,j+a,new Color(tile5R,tile5G,tile5B).getRGB());
+                                      img.setRGB(i+b,j+a,new Color(tile5R,tile5G,tile5B).getRGB());
 
-                                      }
                                   }
                               }
+                          }
 							
-								else if(select == 5) {
-                                  for (int i = 0; i < tileW; i++ ) {
-                                      for(int j = 0; j < tileH; j++) {
-                                    	  Color tile6RGB = new Color(tile6.getRGB(i,j));
-                                          int tile6R = tile6RGB.getRed();
-                                          int tile6G = tile6RGB.getGreen();
-                                          int tile6B = tile6RGB.getBlue();
+						//TILE 6
+							else if(select == 5) {
+                              for (int i = 0; i < tileW; i++ ) {
+                                  for(int j = 0; j < tileH; j++) {
+                                	  Color tile6RGB = new Color(tile6.getRGB(i,j));
+                                      int tile6R = tile6RGB.getRed();
+                                      int tile6G = tile6RGB.getGreen();
+                                      int tile6B = tile6RGB.getBlue();
 
-                                          img.setRGB(i+b,j+a,new Color(tile6R,tile6G,tile6B).getRGB());
+                                      img.setRGB(i+b,j+a,new Color(tile6R,tile6G,tile6B).getRGB());
 
-                                      }
                                   }
                               }
+                          }
 							
-								else if(select == 6) {
-                                  for (int i = 0; i < tileW; i++ ) {
-                                      for(int j = 0; j < tileH; j++) {
-                                          Color tile7RGB = new Color(tile8.getRGB(i,j));
-                                          int tile7R = tile7RGB.getRed();
-                                          int tile7G = tile7RGB.getGreen();
-                                          int tile7B = tile7RGB.getBlue();
+						//TILE 7
+							else if(select == 6) {
+                              for (int i = 0; i < tileW; i++ ) {
+                                  for(int j = 0; j < tileH; j++) {
+                                      Color tile7RGB = new Color(tile8.getRGB(i,j));
+                                      int tile7R = tile7RGB.getRed();
+                                      int tile7G = tile7RGB.getGreen();
+                                      int tile7B = tile7RGB.getBlue();
 
-                                          img.setRGB(i+b,j+a,new Color(tile7R,tile7G,tile7B).getRGB());
+                                      img.setRGB(i+b,j+a,new Color(tile7R,tile7G,tile7B).getRGB());
 
-                                      }
                                   }
                               }
+                          }
 							
-								else if(select == 7) {
-                                  for (int i = 0; i < tileW; i++ ) {
-                                      for(int j = 0; j < tileH; j++) {
-                                          Color tile8RGB = new Color(tile7.getRGB(i,j));
-                                          int tile8R = tile8RGB.getRed();
-                                          int tile8G = tile8RGB.getGreen();
-                                          int tile8B = tile8RGB.getBlue();
+						//TILE 8
+							else if(select == 7) {
+                              for (int i = 0; i < tileW; i++ ) {
+                                  for(int j = 0; j < tileH; j++) {
+                                      Color tile8RGB = new Color(tile7.getRGB(i,j));
+                                      int tile8R = tile8RGB.getRed();
+                                      int tile8G = tile8RGB.getGreen();
+                                      int tile8B = tile8RGB.getBlue();
 
-                                          img.setRGB(i+b,j+a,new Color(tile8R,tile8G,tile8B).getRGB());
+                                      img.setRGB(i+b,j+a,new Color(tile8R,tile8G,tile8B).getRGB());
 
-                                      }
                                   }
                               }
-						}
+                          }
 					}
+				}
 
+			//evaluate the region of the image that is being generated
 			System.out.println("Generating Tile: "+w);
 			
+			//cycle onto the region on the right
 			if(a <= (width-tileW)) {
 				a+= tileW;
 			}
 			
+			//when the end of the column is reached, return back to the start and move down a row
 			if (a>= width) {
 				b += tileH;
 				a = 0;

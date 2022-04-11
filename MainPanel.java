@@ -53,6 +53,7 @@ public class MainPanel extends JPanel implements ActionListener{
 			setBackground(Color.LIGHT_GRAY);
 		}
 
+		//action when a button is clicked
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			switch (event.getActionCommand()) {
@@ -94,18 +95,17 @@ public class MainPanel extends JPanel implements ActionListener{
 		    g.setFont(f2);
 		    
 		    g.setColor(Color.BLACK);
-			g.drawString("IAT 455: Computational Media", 10, 25); //log for what button is pressed
-			g.drawString("Created by: Amena Salman and Taylen Lee-Chin", width-325, 25); //log for what button is pressed
+			g.drawString("IAT 455: Computational Media", 10, 25);
+			g.drawString("Created by: Amena Salman and Taylen Lee-Chin", width-325, 25);
 			
 			Font f3 = new Font("Comic Sans MS", Font.PLAIN, 18);  
 		    g.setFont(f3);
-		    g.drawString(choice, width/2-250, height/2+300); //log for what button is pressed
+		    g.drawString(choice, width/2-250, height/2+300);
 			
 			img.draw(g);
 		}
 		
 		public void selectFile() {
-			
 			int returnValue = openFileChooser.showOpenDialog(this);
 			
 			if (returnValue == JFileChooser.APPROVE_OPTION) {

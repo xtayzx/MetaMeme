@@ -38,8 +38,8 @@ public class Mosaic extends JFrame{
 		bPanel.addActionListener(mPanel);
 		
 		setLayout(new BorderLayout());
-		add(bPanel, BorderLayout.SOUTH);
-		add(mPanel, BorderLayout.CENTER);
+		add(bPanel, BorderLayout.SOUTH); //button panel
+		add(mPanel, BorderLayout.CENTER); //main panel
 		pack();
 		setVisible(true);
 		
