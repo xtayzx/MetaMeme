@@ -25,8 +25,8 @@ public class ImportedImageTiles extends BaseImage implements ImageObserver {
 			tile1 = ImageIO.read(new File("tile1.jpg"));
 			tile2 = ImageIO.read(new File("tile2.jpg"));
 			tile3 = ImageIO.read(new File("tile3.jpg"));
-			tile4 = ImageIO.read(new File("tile4.jpg"));
-			tile5 = ImageIO.read(new File("tile5.jpg"));
+			tile4 = ImageIO.read(new File("tile9.jpg"));
+			tile5 = ImageIO.read(new File("tile4.jpg"));
             tile6 = ImageIO.read(new File("tile6.jpg"));
             tile7 = ImageIO.read(new File("tile7.jpg"));
             tile8 = ImageIO.read(new File("tile8.jpg"));
