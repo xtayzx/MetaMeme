@@ -73,7 +73,7 @@ public class MainPanel extends JPanel implements ActionListener{
 		}
 
 		public void paint(Graphics g) {
-			g.setColor(Color.CYAN);
+			g.setColor(Color.WHITE);
 			g.fillRect(0,0,width,height);
 			
 			g.drawString(choice, width/2-250, height/2+280); //log for what button is pressed
@@ -84,7 +84,7 @@ public class MainPanel extends JPanel implements ActionListener{
 			g.setColor(Color.WHITE);
 		    Font f1 = new Font("Comic Sans MS", Font.PLAIN, 42);  
 		    g.setFont(f1); 
-			g.drawString("Meta Meme", width/2-125, height/2);
+			g.drawString("Meta Meme", width/2-110, height/2);
 			
 			img.draw(g);
 		}
