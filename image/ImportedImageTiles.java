@@ -307,7 +307,7 @@ public class ImportedImageTiles extends BaseImage implements ImageObserver {
 										int tile1G = tile1RGB.getGreen();
 										int tile1B = tile1RGB.getBlue();
 
-										img.setRGB(i+b,j+a,new Color(tile1R,tile1G,tile1B).getRGB());
+										img.setRGB(i+b,j+a,new Color(tile1R,tile1G,tile1B).getRGB()); //add b and a to state the new origin point of drawing the pixels for the tile
 										}
 									}
 								}
