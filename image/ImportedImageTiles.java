@@ -502,7 +502,7 @@ public class ImportedImageTiles extends BaseImage implements ImageObserver {
 		int w = width;
 		int h = height;
 		
-		g.drawImage(tiledImage, 125, 100, w, h, this);
+		g.drawImage(tiledImage, 20, 20, w, h, this);
 
 	}
 
