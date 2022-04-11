@@ -158,7 +158,7 @@ public class ImportedImageTiles extends BaseImage implements ImageObserver {
 				for (int u = i; u < i + tileW; u++ ) {
 					for(int v = j; v < j + tileH; v++) {
 					
-						Color tRGB = new Color(test.getRGB(u, v)); // get rgb values of each pixel
+						Color tRGB = new Color(importedImage.getRGB(u, v)); // get rgb values of each pixel
 
 						// get separated rgb values of each pixel
 						r += tRGB.getRed();
