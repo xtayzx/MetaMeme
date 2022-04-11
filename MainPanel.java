@@ -21,7 +21,7 @@ public class MainPanel extends JPanel implements ActionListener{
 
 		private static final long serialVersionUID = 8885065922598051928L;
 		public static final int width = 760;
-		public static final int height = 685;
+		public static final int height = 720;
 		public String choice = "Welcome to Meta Meme! Select a menu option to begin.";
 		private ButtonPanel mPanel;
 		private ImageTemp img;
@@ -37,7 +37,7 @@ public class MainPanel extends JPanel implements ActionListener{
 			img = new BaseImage();
 			
 			openFileChooser = new JFileChooser();
-			openFileChooser.setCurrentDirectory(new File("c:\\temp"));
+			openFileChooser.setCurrentDirectory(new File("c:\\"));
 			openFileChooser.setFileFilter(new FileNameExtensionFilter("JPEG image", "jpeg", "jpg"));
 			
 			try {
@@ -98,14 +98,14 @@ public class MainPanel extends JPanel implements ActionListener{
 		}
 
 		public void paint(Graphics g) {
-			int diff = 80;
+			int diff = 50;
 			
-			Color background = new Color(0,57,56);
+			Color background = new Color(0,36,31);
 			g.setColor(background);
 			g.fillRect(0,0,width,height);
 			
 			g.setColor(Color.WHITE);
-			g.fillRect(20,535,500,75);
+			g.fillRect(20,535,500,100);
 			
 			g.setColor(Color.DARK_GRAY);
 			g.fillRect(20,20,500,500);
@@ -118,13 +118,14 @@ public class MainPanel extends JPanel implements ActionListener{
 		    Font f2 = new Font("Calibri", Font.PLAIN, 16);  
 		    g.setFont(f2);
 
-			g.drawString("IAT 455: Computational Media", 20, height/2+300);
-			g.drawString("Created by: Amena Salman and Taylen Lee-Chin", 20,height/2+320);
+			g.drawString("IAT 455: Computational Media", 20, height/2+310);
+			g.drawString("Created by: Amena Salman and Taylen Lee-Chin", 20,height/2+330);
+			g.drawString("Tiles Preview:", pos1, 38);
 			
 		    g.setColor(Color.BLACK);
 			Font f3 = new Font("Comic Sans MS", Font.PLAIN, 18);  
 		    g.setFont(f3);
-		    g.drawString(choice, width/2-340, height/2+235);
+		    g.drawString(choice, width/2-340, height/2+232);
 		    
 		    g.drawImage(tile1, pos1, 100-diff, tilePrevW, tilePrevH, this);
 		    g.drawImage(tile2, pos2, 100-diff, tilePrevW, tilePrevH, this);
