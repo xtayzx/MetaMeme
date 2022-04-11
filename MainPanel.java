@@ -100,7 +100,7 @@ public class MainPanel extends JPanel implements ActionListener{
 		public void paint(Graphics g) {
 			int diff = 50;
 			
-			Color background = new Color(0,36,31);
+			Color background = new Color(0,54,46);
 			g.setColor(background);
 			g.fillRect(0,0,width,height);
 			
