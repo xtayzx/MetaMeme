@@ -14,10 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import image.BaseImage;
-//import image.Image1;
 import image.ImageTemp;
-import image.ImageTiles;
-//import image.Image2;
 import image.ImportedImageTiles;
 
 public class MainPanel extends JPanel implements ActionListener{
@@ -25,12 +22,12 @@ public class MainPanel extends JPanel implements ActionListener{
 		private static final long serialVersionUID = 8885065922598051928L;
 		public static final int width = 750;
 		public static final int height = 700;
-		public String choice = "No button pressed";
+		public String choice = "Welcome to Meta Meme! Select an option to begin.";
 		private ButtonPanel mPanel;
 		private ImageTemp img;
 		
 		private final JFileChooser openFileChooser;
-		private BufferedImage originalBI;
+		private BufferedImage originalBI, test;
 		public String fileUpload;
 		
 		public MainPanel(ButtonPanel m) {
@@ -41,6 +38,14 @@ public class MainPanel extends JPanel implements ActionListener{
 			openFileChooser = new JFileChooser();
 			openFileChooser.setCurrentDirectory(new File("c:\\temp"));
 			openFileChooser.setFileFilter(new FileNameExtensionFilter("JPEG image", "jpeg", "jpg"));
+			
+			try {
+				test = ImageIO.read(new File("handsome.jpg"));
+			}
+			
+			catch (Exception e) {
+				System.out.println("Cannot load the provided image");
+			}
 		}
 		
 		public void paintComponent(Graphics g) {
@@ -52,22 +57,23 @@ public class MainPanel extends JPanel implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
 			switch (event.getActionCommand()) {
 			case "Generate Test Mosaic":
-				choice = "Test Mosaic generated";
-				img = new ImageTiles();
+				choice = "You have generated a Handsome Squidward!";
+				img = new ImportedImageTiles(test);
 				mPanel.mosaic.setEnabled(false);
 				mPanel.custom.setEnabled(false);
 				break;
 			case "Reset Image":
-				choice = "Reset selected";
+				choice = "Canvas reset!";
 				img = new BaseImage();
 				mPanel.mosaic.setEnabled(true);
 				mPanel.custom.setEnabled(true);
 				break;
-			case "Upload File":
-				choice = "Custom File chosen";
+			case "Upload Custom Image":
+				choice = "You have generated a custom mosaic!";
 				selectFile();
 				mPanel.mosaic.setEnabled(false);
 				mPanel.custom.setEnabled(false);
+				break;
 			}
 			repaint();
 		}
@@ -76,8 +82,6 @@ public class MainPanel extends JPanel implements ActionListener{
 			g.setColor(Color.WHITE);
 			g.fillRect(0,0,width,height);
 			
-			g.drawString(choice, width/2-250, height/2+280); //log for what button is pressed
-			
 			g.setColor(Color.DARK_GRAY);
 			g.fillRect(125,100,500,500);
 			
@@ -85,6 +89,17 @@ public class MainPanel extends JPanel implements ActionListener{
 		    Font f1 = new Font("Comic Sans MS", Font.PLAIN, 42);  
 		    g.setFont(f1); 
 			g.drawString("Meta Meme", width/2-110, height/2);
+
+		    Font f2 = new Font("Calibri", Font.PLAIN, 16);  
+		    g.setFont(f2);
+		    
+		    g.setColor(Color.BLACK);
+			g.drawString("IAT 455: Computational Media", 10, 25); //log for what button is pressed
+			g.drawString("Created by: Amena Salman and Taylen Lee-Chin", width-325, 25); //log for what button is pressed
+			
+			Font f3 = new Font("Comic Sans MS", Font.PLAIN, 18);  
+		    g.setFont(f3);
+		    g.drawString(choice, width/2-250, height/2+300); //log for what button is pressed
 			
 			img.draw(g);
 		}
